@@ -19,9 +19,9 @@ _**Этот мессенджер выполнен в рамках проекта
 - [Angular CLI](https://angular.io/cli) (установить с помощью команды `npm install -g @angular/cli`)
 
 1. Склонировать репозиторий: `git clone https://github.com/i-andrey-i/ArtSoft`
-2. Перейти в директорию проекта `cd ArtSoft`
+2. Перейти в директорию проекта `cd messenger`
 3. Установить зависимости `npm install`
 4. Запустить проект `ng serve`
 
 **Используемый стек:** 
-Angular, TypeScript, CSS
+Angular, TypeScript, CSS, Python, Fastapi, Sqlalchemy, Redis, Docker
