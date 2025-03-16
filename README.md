@@ -13,6 +13,15 @@ _**Этот мессенджер выполнен в рамках проекта
 
 **Инструкция по запуску:**
 
+Перед началом убедитесь, что у вас установлены следующие инструменты:
+
+- [Node.js](https://nodejs.org/) (рекомендуемая версия: LTS)
+- [Angular CLI](https://angular.io/cli) (установить с помощью команды `npm install -g @angular/cli`)
+
+1. Склонировать репозиторий: `git clone https://github.com/i-andrey-i/ArtSoft`
+2. Перейти в директорию проекта `cd ArtSoft`
+3. Установить зависимости `npm install`
+4. Запустить проект `ng serve`
 
 **Используемый стек:** 
 Angular, TypeScript, CSS
