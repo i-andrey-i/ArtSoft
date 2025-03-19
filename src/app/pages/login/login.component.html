@@ -1,0 +1,28 @@
+<div>
+    <p>Welcome to WebChat</p>
+    <app-custom-input
+        type="email"
+        placeholder="Your email..."
+        [(value)]="email"
+    ></app-custom-input>
+
+    <app-custom-input
+        type="password"
+        placeholder="Your password..."
+        [(value)]="password"
+    ></app-custom-input>
+
+    <app-custom-button
+        text="Log in"
+        color="#007bff"
+        (onClick)="onLoginClick()"
+    ></app-custom-button>
+
+    <app-custom-button
+        text="register"
+        color="grey"
+        (onClick)="onLoginClick()"
+    ></app-custom-button>
+
+    <p>By config, you are agree with the platform rules</p>
+</div>
