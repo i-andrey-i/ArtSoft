@@ -1,7 +1,14 @@
 <div>
-    <p>Welcome to WebChat</p>
+    <p>Registration</p>
+
     <app-custom-input
-        type="email"
+        type="text"
+        placeholder="Your name..."
+        [(value)]="name"
+    ></app-custom-input>
+
+    <app-custom-input
+        type='email'
         placeholder="Your email..."
         [(value)]="email"
     ></app-custom-input>
@@ -12,16 +19,16 @@
         [(value)]="password"
     ></app-custom-input>
 
-    <app-custom-button
-        text="Log in"
-        color="#007bff"
-        (onClick)="onLoginClick()"
-    ></app-custom-button>
+    <app-custom-input
+        type="password"
+        placeholder="Repeat your password..."
+        [(value)]="password"
+    ></app-custom-input>
 
     <app-custom-button
         text="register"
-        color="grey"
-        (onClick)="onRegisterClick()"
+        color="blue"
+        (onClick)="onLoginClick()"
     ></app-custom-button>
 
     <p>By config, you are agree with the platform rules</p>

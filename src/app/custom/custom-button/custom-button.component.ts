@@ -4,7 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core'
 	selector: 'app-custom-button',
 	standalone: true,
 	templateUrl: './custom-button.component.html',
-	styleUrls: ['./custom-button.component.css'],
+	styleUrls: ['./custom-button.component.scss'],
 })
 export class CustomButtonComponent {
 	@Input() text: string = 'Button' // Текст кнопки

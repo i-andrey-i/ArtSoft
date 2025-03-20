@@ -4,7 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core'
 	selector: 'app-custom-input',
   standalone: true,
 	templateUrl: './custom-input.component.html', // Указываем путь к HTML
-	styleUrls: ['./custom-input.component.css'], // Указываем путь к CSS
+	styleUrls: ['./custom-input.component.scss'], // Указываем путь к CSS
 })
 export class CustomInputComponent {
 	@Input() type: 'email' | 'password' | 'text' = 'text' // Тип input поля
