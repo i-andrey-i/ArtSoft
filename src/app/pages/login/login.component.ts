@@ -14,7 +14,7 @@ export class LoginComponent {
 	email: string = ''
 	password: string = ''
 
-	constructor(private router:Router){}
+	constructor(private router: Router) {}
 
 	// Метод для обработки клика по кнопке
 	onLoginClick(): void {
@@ -23,7 +23,11 @@ export class LoginComponent {
 		console.log('Password:', this.password)
 	}
 
-	onRegisterClick(): void{
+	onRegisterClick(): void {
 		this.router.navigate(['/register'])
+	}
+
+	onRestoreClick(): void {
+		this.router.navigate(['/restore'])
 	}
 }
