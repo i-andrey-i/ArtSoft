@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+//colors
+$background-color: #13171D;
+$fields-color: #1E252F;
+$active-fields-color: #4996F7;
+$text-color-gray: #8E9297;
+$text-color-white: white;
+
+
+//text
+$font-size-small: 16px;
+$font-size-base: 18px;
+$font-size-large: 24px;
+
+//variables
+$border-radius-buttons: 18px;
+$border-radius-messages: 18px;
+
+//mixins
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@mixin flexbox($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+//reset all styles
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+//set base styles
+body{
+  font-family: "Noto Sans Display", sans-serif;
+  background-color: $background-color;
+}

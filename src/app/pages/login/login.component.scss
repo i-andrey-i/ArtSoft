@@ -1,0 +1,33 @@
+@import '../../../styles.scss';
+div{
+  @include flexbox(column, flex-start, center);
+  background-color: $background-color;
+  height: 100vh;
+  padding-top: 30%;
+  gap: 1vh;
+}
+
+img{
+  height: 8vh;
+  width: 16vw;
+  margin-bottom: 1vh;
+}
+
+h1{
+  margin-bottom: 1vh;
+  font-size: 32px;
+  font-weight: bold;
+  color: $text-color-white;
+  @include center;
+}
+
+.postscriptum{
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  font-weight: lighter;
+  color: $text-color-gray;
+}
+
+.margin-large{
+  margin-top: 1vh;
+}

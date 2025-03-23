@@ -6,7 +6,7 @@ import { CustomButtonComponent } from '../../custom/custom-button/custom-button.
 	selector: 'app-registration',
 	standalone: true,
 	templateUrl: './registration.component.html',
-	styles: [],
+	styleUrls: ['./registration.component.scss'],
 	imports: [CustomInputComponent, CustomButtonComponent],
 })
 export class RegistrationComponent {

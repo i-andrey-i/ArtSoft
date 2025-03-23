@@ -1,5 +1,6 @@
 <div>
-    <p>Welcome to WebChat</p>
+    <img src="assets/img/user-square.svg" alt="user-square">
+    <h1>Welcome <br> to WebChat</h1>
     <app-custom-input
         type="email"
         placeholder="Your email..."
@@ -13,6 +14,7 @@
     ></app-custom-input>
 
     <app-custom-button
+        class = "margin-large"
         text="Log in"
         color="#007bff"
         (onClick)="onLoginClick()"
@@ -20,10 +22,10 @@
 
     <app-custom-button
         text="register"
-        color="grey"
+        color="#1E252F"
         (onClick)="onRegisterClick()"
     ></app-custom-button>
 
-    <p>By config, you are agree with the platform rules</p>
-    <a (click)="onRestoreClick()"><p>Forgot the password?</p></a>
+    <p class = "postscriptum">By config, you agree <br> with the platform rules</p>
+    <a (click)="onRestoreClick()" class = "postscriptum"><p>Forgot the password?</p></a>
 </div>

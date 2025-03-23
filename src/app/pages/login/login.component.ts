@@ -7,7 +7,7 @@ import { Router } from '@angular/router'
 	selector: 'app-login',
 	standalone: true,
 	templateUrl: './login.component.html',
-	styles: [],
+	styleUrls: ['./login.component.scss'],
 	imports: [CustomInputComponent, CustomButtonComponent],
 })
 export class LoginComponent {

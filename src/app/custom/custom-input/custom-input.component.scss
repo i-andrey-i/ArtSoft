@@ -1,10 +1,14 @@
+@import '../../../styles.scss';
+
 input {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  width: 90vw;
+  height: 5vh;
+  padding: 2vh;
+  padding-left: 4vw;
+  font-size: $font-size-base;
+  color: $text-color-gray;
+  border-radius: $border-radius-buttons;
+  background-color: $fields-color;
 }
 
 input:focus {

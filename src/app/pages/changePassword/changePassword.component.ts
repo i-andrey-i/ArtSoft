@@ -7,7 +7,7 @@ import { Router } from '@angular/router'
     selector: 'app-changePassword',
     standalone: true,
     templateUrl: './changePassword.component.html',
-    styles: [],
+    styleUrls: ['./changePassword.component.scss'],
     imports: [CustomInputComponent, CustomButtonComponent],
 })
 export class ChangePasswordComponent {

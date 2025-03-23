@@ -13,7 +13,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-MFN5PWB7.js";
+} from "./chunk-KXIB5D34.js";
 import {
   ALLOW_MULTIPLE_PLATFORMS,
   APP_ID,
@@ -48,13 +48,13 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-62672OIL.js";
+} from "./chunk-EUYXVYVO.js";
 import {
   __async,
   __toESM
 } from "./chunk-YHCV7DAQ.js";
 
-// node_modules/@angular/platform-server/fesm2022/platform-server.mjs
+// ../node_modules/@angular/platform-server/fesm2022/platform-server.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __commonJS = (cb, mod) => function __require() {
@@ -16406,7 +16406,7 @@ var ServerXhr = class _ServerXhr {
       if (!this.xhrImpl) {
         const {
           default: xhr
-        } = yield import("./xhr2-TXIMV6CV.js");
+        } = yield import("./xhr2-UMY7BS5A.js");
         this.xhrImpl = xhr;
       }
     });
@@ -16974,4 +16974,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-WAHHI4OT.js.map
+//# sourceMappingURL=chunk-6ALJKVLN.js.map

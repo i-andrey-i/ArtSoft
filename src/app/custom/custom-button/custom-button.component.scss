@@ -1,11 +1,17 @@
+@import '../../../styles.scss';
+
 button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  width: 90vw;
+  height: 5vh;
+  padding: 2vh;
+  padding-left: 4vw;
+  font-size: $font-size-base;
+  color: $text-color-white;
+  border-radius: $border-radius-buttons;
+  background-color: $fields-color;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  @include center;
 }
 
 button:hover {

@@ -7,7 +7,7 @@ import { Router } from '@angular/router'
     selector: 'app-restorePassword',
     standalone: true,
     templateUrl: './restorePassword.component.html',
-    styles: [],
+    styleUrls: ['./restorePassword.component.scss'],
     imports: [CustomInputComponent, CustomButtonComponent],
 })
 export class RestorePasswordComponent {
