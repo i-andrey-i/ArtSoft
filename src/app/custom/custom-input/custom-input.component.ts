@@ -1,14 +1,16 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 
 @Component({
 	selector: 'app-custom-input',
-  standalone: true,
+	standalone: true,
+	imports: [FormsModule],
 	templateUrl: './custom-input.component.html', // Указываем путь к HTML
 	styleUrls: ['./custom-input.component.scss'], // Указываем путь к CSS
 })
 export class CustomInputComponent {
 	@Input() type: 'email' | 'password' | 'text' = 'text' // Тип input поля
-	@Input() placeholder: string = '' 
+	@Input() placeholder: string = ''
 	@Input() value: string = '' // Значение input поля
 	@Output() valueChange = new EventEmitter<string>() // Событие изменения значения
 

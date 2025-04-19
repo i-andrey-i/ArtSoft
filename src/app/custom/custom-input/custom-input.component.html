@@ -1,6 +1,6 @@
 <input
-  [type]="type"
-  [placeholder]="placeholder"
-  [value]="value"
-  (input)="onInputChange($event)"
+	[type]="type"
+	[placeholder]="placeholder"
+	[(ngModel)]="value"
+	(ngModelChange)="valueChange.emit($event)"
 />

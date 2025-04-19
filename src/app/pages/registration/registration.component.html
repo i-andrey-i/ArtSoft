@@ -1,35 +1,38 @@
 <div>
-    <img src="assets/img/user-square.svg" alt="user-square">
-    <h1>Registration</h1>
-    <app-custom-input
-        type="text"
-        placeholder="Your name..."
-        [(value)]="name"
-    ></app-custom-input>
+	<img src="assets/img/user-square.svg" alt="user-square" />
+	<h1>Registration</h1>
+	<app-custom-input
+		type="text"
+		placeholder="Your name..."
+		value="name"
+	></app-custom-input>
 
-    <app-custom-input
-        type='email'
-        placeholder="Your email..."
-        [(value)]="email"
-    ></app-custom-input>
+	<app-custom-input
+		type="email"
+		placeholder="Your email..."
+		value="email"
+	></app-custom-input>
 
-    <app-custom-input
-        type="password"
-        placeholder="Your password..."
-        [(value)]="password"
-    ></app-custom-input>
+	<app-custom-input
+		type="password"
+		placeholder="Your password..."
+		value="password"
+	></app-custom-input>
 
-    <app-custom-input
-        type="password"
-        placeholder="Repeat your password..."
-        [(value)]="password"
-    ></app-custom-input>
+	<app-custom-input
+		type="password"
+		placeholder="Repeat your password..."
+		value="confirmPassword"
+	></app-custom-input>
 
-    <app-custom-button
-        text="register"
-        color="#007bff"
-        (onClick)="onLoginClick()"
-    ></app-custom-button>
+	<app-custom-button
+		text="Register"
+		color="#007bff"
+		(onClick)="onRegisterClick()"
+	></app-custom-button>
 
-    <p class = "postscriptum">By config, you agree <br> with the platform rules</p>
+	<p class="postscriptum">
+		By continuing, you agree <br />
+		with the platform rules
+	</p>
 </div>

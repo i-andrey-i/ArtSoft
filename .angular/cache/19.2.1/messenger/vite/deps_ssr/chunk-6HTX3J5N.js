@@ -1,14 +1,16 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  Title
+} from "./chunk-XW4IOJ3Z.js";
+import {
   DOCUMENT,
   HashLocationStrategy,
   LOCATION_INITIALIZED,
   Location,
   LocationStrategy,
   PathLocationStrategy,
-  Title,
   ViewportScroller
-} from "./chunk-KXIB5D34.js";
+} from "./chunk-HIJDZSYJ.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
@@ -55,7 +57,6 @@ import {
   makeEnvironmentProviders,
   publishExternalGlobalUtil,
   reflectComponentType,
-  require_cjs,
   require_operators,
   runInInjectionContext,
   setClassMetadata,
@@ -77,14 +78,17 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-EUYXVYVO.js";
+} from "./chunk-K6L7TLVU.js";
+import {
+  require_cjs
+} from "./chunk-AQYIT73X.js";
 import {
   __spreadProps,
   __spreadValues,
   __toESM
 } from "./chunk-YHCV7DAQ.js";
 
-// ../node_modules/@angular/router/fesm2022/router.mjs
+// node_modules/@angular/router/fesm2022/router.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var import_operators = __toESM(require_operators(), 1);
 var PRIMARY_OUTLET = "primary";
@@ -5942,4 +5946,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-RWUDYYFH.js.map
+//# sourceMappingURL=chunk-6HTX3J5N.js.map

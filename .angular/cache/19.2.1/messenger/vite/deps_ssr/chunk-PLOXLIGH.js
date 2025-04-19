@@ -2,10 +2,12 @@ import { createRequire } from 'module';const require = createRequire(import.meta
 import {
   BrowserDomAdapter,
   BrowserModule,
-  DOCUMENT,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin,
-  HTTP_ROOT_INTERCEPTOR_FNS,
+  HTTP_ROOT_INTERCEPTOR_FNS
+} from "./chunk-XW4IOJ3Z.js";
+import {
+  DOCUMENT,
   NullViewportScroller,
   PLATFORM_SERVER_ID,
   PlatformLocation,
@@ -13,7 +15,7 @@ import {
   XhrFactory,
   getDOM,
   setRootDomAdapter
-} from "./chunk-KXIB5D34.js";
+} from "./chunk-HIJDZSYJ.js";
 import {
   ALLOW_MULTIPLE_PLATFORMS,
   APP_ID,
@@ -39,7 +41,6 @@ import {
   inject,
   makeEnvironmentProviders,
   platformCore,
-  require_cjs,
   setClassMetadata,
   setDocument,
   startMeasuring,
@@ -48,13 +49,16 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-EUYXVYVO.js";
+} from "./chunk-K6L7TLVU.js";
+import {
+  require_cjs
+} from "./chunk-AQYIT73X.js";
 import {
   __async,
   __toESM
 } from "./chunk-YHCV7DAQ.js";
 
-// ../node_modules/@angular/platform-server/fesm2022/platform-server.mjs
+// node_modules/@angular/platform-server/fesm2022/platform-server.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __commonJS = (cb, mod) => function __require() {
@@ -16406,7 +16410,7 @@ var ServerXhr = class _ServerXhr {
       if (!this.xhrImpl) {
         const {
           default: xhr
-        } = yield import("./xhr2-UMY7BS5A.js");
+        } = yield import("./xhr2-TXIMV6CV.js");
         this.xhrImpl = xhr;
       }
     });
@@ -16974,4 +16978,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-6ALJKVLN.js.map
+//# sourceMappingURL=chunk-PLOXLIGH.js.map

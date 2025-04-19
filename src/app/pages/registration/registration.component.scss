@@ -1,27 +1,29 @@
 @import '../../../styles.scss';
-div{
-  @include flexbox(column, flex-start, center);
-  background-color: $background-color;
-  height: 100vh;
-  padding-top: 30%;
-  gap: 2vh;
+
+div {
+	@include flexbox(column, flex-start, center);
+	background-color: $background-color;
+	height: 100vh;
+	padding-top: 10vh;
+	gap: 2vh;
 }
 
-img{
-  height: 8vh;
-  width: 16vw;
+img {
+	height: 48px;
+	width: 96px;
+	object-fit: contain;
 }
 
-h1{
-  font-size: 32px;
-  font-weight: bold;
-  color: $text-color-white;
-  @include center;
+h1 {
+	font-size: 32px;
+	font-weight: bold;
+	color: $text-color-white;
+	text-align: center;
 }
 
-.postscriptum{
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  font-weight: lighter;
-  color: $text-color-gray;
+.postscriptum {
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	font-weight: lighter;
+	color: $text-color-gray;
 }

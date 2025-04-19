@@ -1,0 +1,38 @@
+<div class="chat" *ngIf="selectedChat">
+	<div class="chat-header">
+		<img [src]="selectedChat.avatar" [alt]="selectedChat.name" class="avatar" />
+		<div class="chat-info">
+			<h2>{{ selectedChat.name }}</h2>
+			<p>last seen never</p>
+		</div>
+	</div>
+
+	<div class="chat-messages">
+		<div
+			*ngFor="let message of messages"
+			class="message"
+			[class.sent]="message.senderId === 0"
+		>
+			<div class="message-content">
+				<p>{{ message.content }}</p>
+				<span class="message-time">{{
+					message.timestamp | date : 'shortTime'
+				}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="chat-input">
+		<input
+			type="text"
+			placeholder="Write your message..."
+			[(ngModel)]="newMessage"
+			(keyup.enter)="onSendMessage()"
+		/>
+		<button (click)="onSendMessage()">Send</button>
+	</div>
+</div>
+
+<div class="no-chat-selected" *ngIf="!selectedChat">
+	<p>Select a chat to start messaging</p>
+</div>

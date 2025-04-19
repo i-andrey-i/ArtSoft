@@ -1,33 +1,50 @@
 @import '../../../styles.scss';
-div{
-  @include flexbox(column, flex-start, center);
-  background-color: $background-color;
-  height: 100vh;
-  padding-top: 30%;
-  gap: 1vh;
+
+div {
+	@include flexbox(column, flex-start, center);
+	background-color: $background-color;
+	height: 100vh;
+	padding-top: 30%;
+	gap: 2vh;
 }
 
-img{
-  height: 8vh;
-  width: 16vw;
-  margin-bottom: 1vh;
+img {
+	height: 8vh;
+	width: 16vw;
 }
 
-h1{
-  margin-bottom: 1vh;
-  font-size: 32px;
-  font-weight: bold;
-  color: $text-color-white;
-  @include center;
+h1 {
+	font-size: 32px;
+	font-weight: bold;
+	color: $text-color-white;
+	@include center;
 }
 
-.postscriptum{
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-  font-weight: lighter;
-  color: $text-color-gray;
+.postscriptum {
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+	font-weight: lighter;
+	color: $text-color-gray;
 }
 
-.margin-large{
-  margin-top: 1vh;
+.margin-large {
+	margin-top: 2vh;
+}
+
+.links {
+	margin-top: 1vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1vh;
+
+	a {
+		color: $text-color-gray;
+		text-decoration: none;
+		cursor: pointer;
+
+		&:hover {
+			color: $text-color-white;
+		}
+	}
 }

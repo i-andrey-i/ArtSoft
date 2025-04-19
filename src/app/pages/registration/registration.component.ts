@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { CustomInputComponent } from '../../custom/custom-input/custom-input.component'
 import { CustomButtonComponent } from '../../custom/custom-button/custom-button.component'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-registration',
@@ -12,13 +13,30 @@ import { CustomButtonComponent } from '../../custom/custom-button/custom-button.
 export class RegistrationComponent {
 	email: string = ''
 	password: string = ''
+	confirmPassword: string = ''
 	name: string = ''
+	errorMessage: string = ''
 
-	// Метод для обработки клика по кнопке
-	onLoginClick(): void {
-		console.log('Login button clicked')
-		console.log('Email:', this.email)
-		console.log('Password:', this.password)
-		console.log('Name:', this.name )
+	constructor(private router: Router) {}
+
+	onRegisterClick(): void {
+		this.errorMessage = ''
+
+		/*if (!this.name || !this.email || !this.password || !this.confirmPassword) {
+			this.errorMessage = 'All fields are required'
+			return
+		}
+
+		if (this.password !== this.confirmPassword) {
+			this.errorMessage = 'Passwords do not match'
+			return
+		}
+
+		if (this.password.length < 6) {
+			this.errorMessage = 'Password must be at least 6 characters long'
+			return
+		}*/
+
+		this.router.navigate(['/main'])
 	}
 }
