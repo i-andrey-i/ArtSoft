@@ -55,8 +55,7 @@ export class MainComponent implements OnInit {
 
 	onSendMessage(message: Message): void {
 		if (this.selectedUser) {
-			this.messageService.sendMessage(message).subscribe(() => {
-			})
+			this.messageService.sendMessage(message).subscribe(() => {})
 		}
 	}
 }
