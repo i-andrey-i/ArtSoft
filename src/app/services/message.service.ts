@@ -3,6 +3,7 @@ import { Observable } from 'rxjs'
 import { Message } from '../models/message.model'
 import { BaseHttpService } from './base/base-http.service'
 import { Chat } from '../models/chat.model';
+import * as DTO from './dto/message.dto';
 import { PaginationOptions, QueryOptions } from './models/options';
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +19,7 @@ export class MessageService extends BaseHttpService {
 		return this.get<Message[]>(`messages/${chatId}`, options);
 	}
 
-	sendMessage(message: Message): Observable<Message> {
+	sendMessage(message: DTO.MessageSendDTO): Observable<Message> {
 		return this.post<Message>('messages', message);
 	}
 

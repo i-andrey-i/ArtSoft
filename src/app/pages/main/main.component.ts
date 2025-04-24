@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms'
 import { ChatComponent } from '../../components/chat/chat.component'
 import { MessageService } from '../../services/message.service'
 import { UserService } from '../../services/user.service'
-import { User } from '../../models/user.model'
 import { Message } from '../../models/message.model'
 import { Chat } from '../../models/chat.model'
+
 
 @Component({
 	selector: 'app-main',
@@ -53,7 +53,11 @@ export class MainComponent implements OnInit {
 
 	onSendMessage(message: Message): void {
 		if (this.selectedChat) {
-			this.messageService.sendMessage(message).subscribe(() => {})
+			this.messageService.sendMessage({
+				to_user_id: this.selectedChat.id,
+				text: message.text,
+				created_at: new Date().toLocaleString()
+			}).subscribe(() => {})
 		}
 	}
 }
