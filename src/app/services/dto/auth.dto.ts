@@ -1,0 +1,21 @@
+export interface LoginDTO {
+    username: string;
+    password: string
+}
+
+export interface RegisterDTO {
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
+export interface RestorePasswordDTO {
+    username: string;
+}
+
+export interface ChangePasswordDTO {
+    restore_token: string;
+    password: string;
+    confirmPassword: string;
+}

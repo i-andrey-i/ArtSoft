@@ -1,7 +1,8 @@
 export interface Message {
-	id: number
-	senderId: number
-	receiverId: number
-	content: string
-	timestamp: Date
+	id: number;
+	from_user_id: string;
+	is_read: boolean;
+	text: string;
+	created_at: string;
 }
+
