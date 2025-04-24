@@ -6,6 +6,7 @@ import { MessageService } from '../../services/message.service'
 import { UserService } from '../../services/user.service'
 import { User } from '../../models/user.model'
 import { Message } from '../../models/message.model'
+import { Chat } from '../../models/chat.model'
 
 @Component({
 	selector: 'app-main',
@@ -16,9 +17,9 @@ import { Message } from '../../models/message.model'
 	styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-	users: User[] = []
-	filteredUsers: User[] = []
-	selectedUser: User | null = null
+	chats: Chat[] = []
+	filteredChats: Chat[] = []
+	selectedChat: Chat | null = null
 	searchQuery: string = ''
 
 	constructor(
@@ -31,30 +32,27 @@ export class MainComponent implements OnInit {
 	}
 
 	loadUsers(): void {
-		this.userService.getUsers().subscribe(users => {
-			this.users = users
-			this.filteredUsers = users
+		this.messageService.getChats().subscribe(chats => {
+			this.chats = chats;
+			this.filteredChats = chats;
 		})
 	}
 
 	onSearch(): void {
-		if (!this.searchQuery) {
-			this.filteredUsers = this.users
-			return
-		}
-
-		const query = this.searchQuery.toLowerCase()
-		this.filteredUsers = this.users.filter(user =>
-			user.name.toLowerCase().includes(query)
-		)
+		this.messageService.getChats({
+			search: this.searchQuery
+		})
+		.subscribe(chats => {
+			this.filteredChats = chats
+		})
 	}
 
-	selectUser(user: User): void {
-		this.selectedUser = user
+	selectChat(chat: Chat): void {
+		this.selectedChat = chat
 	}
 
 	onSendMessage(message: Message): void {
-		if (this.selectedUser) {
+		if (this.selectedChat) {
 			this.messageService.sendMessage(message).subscribe(() => {})
 		}
 	}

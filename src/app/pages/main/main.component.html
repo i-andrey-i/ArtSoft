@@ -12,15 +12,15 @@
 
 		<div class="user-list">
 			<div
-				*ngFor="let user of filteredUsers"
+				*ngFor="let chat of filteredChats"
 				class="user-item"
-				[class.active]="selectedUser?.id === user.id"
-				(click)="selectUser(user)"
+				[class.active]="selectedChat?.id === chat.id"
+				(click)="selectChat(chat)"
 			>
-				<img [src]="user.avatar" [alt]="user.name" class="avatar" />
+				<img [src]="chat.id" [alt]="chat.name" class="avatar" />
 				<div class="user-info">
-					<div class="user-name">{{ user.name }}</div>
-					<div class="last-message">{{ user.lastMessage }}</div>
+					<div class="user-name">{{ chat.name }}</div>
+					<div class="last-message">{{ chat.last_message }}</div>
 				</div>
 			</div>
 		</div>
@@ -28,11 +28,11 @@
 
 	<div class="chat-container">
 		<app-chat
-			*ngIf="selectedUser"
-			[selectedChat]="selectedUser"
+			*ngIf="selectedChat"
+			[selectedChat]="selectedChat"
 			(messageSent)="onSendMessage($event)"
 		></app-chat>
-		<div *ngIf="!selectedUser" class="no-chat-selected">
+		<div *ngIf="!selectedChat" class="no-chat-selected">
 			Select a user to start chatting
 		</div>
 	</div>

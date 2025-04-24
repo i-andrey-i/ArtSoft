@@ -1,6 +1,5 @@
 <div class="chat" *ngIf="selectedChat">
 	<div class="chat-header">
-		<img [src]="selectedChat.avatar" [alt]="selectedChat.name" class="avatar" />
 		<div class="chat-info">
 			<h2>{{ selectedChat.name }}</h2>
 			<p>last seen never</p>
@@ -11,12 +10,12 @@
 		<div
 			*ngFor="let message of messages"
 			class="message"
-			[class.sent]="message.senderId === 0"
+			[class.sent]="message.from_user_id"
 		>
 			<div class="message-content">
-				<p>{{ message.content }}</p>
+				<p>{{ message.text }}</p>
 				<span class="message-time">{{
-					message.timestamp | date : 'shortTime'
+					message.created_at| date : 'shortTime'
 				}}</span>
 			</div>
 		</div>

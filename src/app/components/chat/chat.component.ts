@@ -44,15 +44,11 @@ export class ChatComponent implements OnInit {
 
 	onSendMessage() {
 		if (this.newMessage.trim() && this.selectedChat) {
-			const message: Message = {
-				id: this.messages.length + 1,
-				senderId: 0, // Current user's ID
-				receiverId: this.selectedChat.id,
-				content: this.newMessage,
-				timestamp: new Date(),
-			}
-			this.messages = [...this.messages, message]
-			this.messageSent.emit(message)
+			//const message: Omit<Message, 'id'> = {
+			//	
+			//}
+			//this.messages = [...this.messages, message]
+			//this.messageSent.emit(message)
 			this.newMessage = ''
 		}
 	}
