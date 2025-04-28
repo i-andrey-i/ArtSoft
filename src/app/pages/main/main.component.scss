@@ -1,26 +1,44 @@
+@import '../../../styles.scss';
+
 .messenger {
-	display: flex;
+	@include flexbox(row, flex-start, left);
+	background-color: $fields-color;
 	height: 100vh;
-	background-color: #f5f5f5;
+	color: $text-color-white;
 }
 
 .sidebar {
-	width: 300px;
-	background-color: #fff;
-	border-right: 1px solid #e0e0e0;
+	width: 40vw;
+	background-color: $background-color;
 	display: flex;
 	flex-direction: column;
+	height: 100vh;
+	border-right: 2px solid gray;
 }
 
 .search-container {
-	padding: 15px;
-	border-bottom: 1px solid #e0e0e0;
+	padding-left: 1vh;
+	background-color: $fields-color;
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
+	margin-top: 3vh;
+	margin-left: 2vw;
+	margin-right: 2vw;
+	@include flexbox(row, flex-start, left);
+	input{
+		background-color: $fields-color;
+		border-radius: 30px;
+		color: $text-color-gray;
+	}
+	img{
+		height: 2.5vh;
+		align-self: center;
+	}
 }
 
 .search-input {
 	width: 100%;
 	padding: 8px 12px;
-	border: 1px solid #e0e0e0;
 	border-radius: 4px;
 	font-size: 14px;
 	outline: none;
@@ -31,8 +49,13 @@
 }
 
 .user-list {
-	flex: 1;
-	overflow-y: auto;
+	background-color: $background-color;
+	height: 100vh;
+	p{
+		margin-left: 3vw;
+		margin-top: 2vh;
+		font-size: $font-size-large
+	}
 }
 
 .user-item {
@@ -43,11 +66,11 @@
 	transition: background-color 0.2s;
 
 	&:hover {
-		background-color: #f5f5f5;
+		background-color: $fields-color;
 	}
 
 	&.active {
-		background-color: #e3f2fd;
+		background-color: $active-fields-color;
 	}
 }
 
@@ -79,13 +102,21 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	background-color: $fields-color;
 }
 
 .no-chat-selected {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	background-color: $fields-color;
 	height: 100%;
-	color: #666;
-	font-size: 16px;
+	color: $text-color-white;
+	font-size: $font-size-large;
+	padding-top: 2vh;
+}
+
+.resizer {
+	width: 5px;
+	background-color: $active-fields-color;
+	cursor: col-resize;
+	position: relative;
+	z-index: 10;
 }

@@ -5,6 +5,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { RestorePasswordComponent } from './pages/restorePassword/restorePassword.component'
 import { ChangePasswordComponent } from './pages/changePassword/changePassword.component'
 import { MainComponent } from './pages/main/main.component'
+import { HttpClientModule } from '@angular/common/http';
 
 export const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
@@ -17,7 +18,7 @@ export const routes: Routes = [
 ]
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [RouterModule.forRoot(routes), HttpClientModule],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}
