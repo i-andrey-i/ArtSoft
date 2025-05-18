@@ -10,12 +10,12 @@
 		<div
 			*ngFor="let message of messages"
 			class="message"
-			[class.sent]="message.from_user_id"
+			[class.sent]="message.fromUserId"
 		>
 			<div class="message-content">
 				<p>{{ message.text }}</p>
 				<span class="message-time">{{
-					message.created_at| date : 'shortTime'
+					message.createdAt| date : 'shortTime'
 				}}</span>
 			</div>
 		</div>
@@ -28,7 +28,9 @@
 			[(ngModel)]="newMessage"
 			(keyup.enter)="onSendMessage()"
 		/>
-		<button (click)="onSendMessage()"><img src = "assets/img/send-arrow.svg"></button>
+		<button (click)="onSendMessage()">
+			<img src="assets/img/send-arrow.svg" alt="send">
+		</button>
 	</div>
 </div>
 

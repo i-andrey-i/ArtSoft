@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core'
+import { Component, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { ChatComponent } from '../../components/chat/chat.component'
@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-main',
 	standalone: true,
 	imports: [CommonModule, FormsModule, ChatComponent, HttpClientModule],
@@ -20,16 +21,39 @@ import { HttpClientModule } from '@angular/common/http';
 })
 
 export class MainComponent implements OnInit {
+
+	sidebarWidth: number = 200; // Начальная ширина sidebar
+	isResizing: boolean = false;
+
 	chats: Chat[] = []
 	filteredChats: Chat[] = []
 	selectedChat: Chat | null = null
 	searchQuery: string = ''
 
 	constructor(
-		private userService: UserService,
-		private messageService: MessageService,
-		private router: Router
-	) {}
+		private _userService: UserService,
+		private _messageService: MessageService,
+		private _router: Router
+	) {
+		this._userService.getMe().subscribe(user => {
+			console.log(user)
+		})
+	}
+
+	@HostListener('document:mousemove', ['$event'])
+	onResizing(event: MouseEvent): void {
+		if (this.isResizing) {
+			const newWidth = event.clientX;
+			if (newWidth > 100 && newWidth < 600) {
+				this.sidebarWidth = newWidth;
+			}
+		}
+	}
+
+	@HostListener('document:mouseup')
+	onResizeEnd(): void {
+		this.isResizing = false;
+	}
 
 	ngOnInit(): void {
 		this.loadUsers()
@@ -48,38 +72,38 @@ export class MainComponent implements OnInit {
 			{
 				id: '1',
 				name: 'John Doe',
-				last_message: {
+				lastMessage: {
 					id: 101,
-					from_user_id: '1',
-					is_read: false,
+					fromUserId: '1',
+					isRead: false,
 					text: 'Hello, how are you?',
-					created_at: '2025-04-28T10:15:00Z',
+					createdAt: '2025-04-28T10:15:00Z',
 				},
-				new_messages_count: 2,
+				newMessagesCount: 2,
 			},
 			{
 				id: '2',
 				name: 'Jane Smith',
-				last_message: {
+				lastMessage: {
 					id: 102,
-					from_user_id: '2',
-					is_read: false,
+					fromUserId: '2',
+					isRead: false,
 					text: 'Let’s meet tomorrow.',
-					created_at: '2025-04-28T09:50:00Z',
+					createdAt: '2025-04-28T09:50:00Z',
 				},
-				new_messages_count: 10,
+				newMessagesCount: 10,
 			},
 			{
 				id: '3',
 				name: 'Alice Johnson',
-				last_message: {
+				lastMessage: {
 					id: 103,
-					from_user_id: '3',
-					is_read: true,
+					fromUserId: '3',
+					isRead: true,
 					text: 'Can you send me the file?',
-					created_at: '2025-04-28T08:30:00Z',
+					createdAt: '2025-04-28T08:30:00Z',
 				},
-				new_messages_count: 0,
+				newMessagesCount: 0,
 			},
 		] as Chat[];
 		this.filteredChats = this.chats;
@@ -87,7 +111,7 @@ export class MainComponent implements OnInit {
 	}
 
 	onSearch(): void {
-		this.messageService.getChats({
+		this._messageService.getChats({
 			search: this.searchQuery
 		})
 		.subscribe(chats => {
@@ -101,34 +125,16 @@ export class MainComponent implements OnInit {
 
 	onSendMessage(message: Message): void {
 		if (this.selectedChat) {
-			this.messageService.sendMessage({
-				to_user_id: this.selectedChat.id,
+			this._messageService.sendMessage({
+				toUserId: this.selectedChat.id,
 				text: message.text,
-				created_at: new Date().toLocaleString()
+				createdAt: new Date().toLocaleString()
 			}).subscribe(() => {})
 		}
 	}
 
-	sidebarWidth: number = 200; // Начальная ширина sidebar
-	isResizing: boolean = false;
-
 	onResizeStart(event: MouseEvent): void {
 		this.isResizing = true;
 		event.preventDefault();
-	}
-
-	@HostListener('document:mousemove', ['$event'])
-	onResizing(event: MouseEvent): void {
-		if (this.isResizing) {
-			const newWidth = event.clientX;
-			if (newWidth > 100 && newWidth < 600) {
-				this.sidebarWidth = newWidth;
-			}
-		}
-	}
-
-	@HostListener('document:mouseup')
-	onResizeEnd(): void {
-		this.isResizing = false;
 	}
 }

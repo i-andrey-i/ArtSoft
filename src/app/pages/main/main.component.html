@@ -1,7 +1,7 @@
 <div class="messenger">
     <div class="sidebar" [style.width.px]="sidebarWidth">
         <div class="search-container">
-            <img src="assets/img/search-icon.svg" />
+            <img src="assets/img/search-icon.svg" alt="search" />
             <input
                     type="text"
                     [(ngModel)]="searchQuery"
@@ -14,15 +14,17 @@
         <div class="user-list">
             <p>Messages</p>
             <div
-                    *ngFor="let chat of filteredChats"
-                    class="user-item"
-                    [class.active]="selectedChat?.id === chat.id"
-                    (click)="selectChat(chat)"
+                *ngFor="let chat of filteredChats"
+                class="user-item"
+                [class.active]="selectedChat?.id === chat.id"
+                (click)="selectChat(chat)"
+                (keydown.enter)="selectChat(chat)"
+                tabindex="0"
             >
                 <img [src]="chat.id" [alt]="chat.name" class="avatar" />
                 <div class="user-info">
                     <div class="user-name">{{ chat.name }}</div>
-                    <div class="last-message">{{ chat.last_message }}</div>
+                    <div class="last-message">{{ chat.lastMessage }}</div>
                 </div>
             </div>
         </div>

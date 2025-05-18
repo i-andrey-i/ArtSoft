@@ -11,7 +11,7 @@ export class UserService extends BaseHttpService {
 	constructor() {
 		super()
 	}
-	
+
 	getUsers(options: QueryOptions = {}): Observable<User[]> {
 		return this.get<User[]>('users', options)
 	}
@@ -20,7 +20,7 @@ export class UserService extends BaseHttpService {
 		return this.get<User[]>('users/me')
 	}
 
-	getUserById(userId: number): Observable<User | undefined> {
+	getUserById(userId: string): Observable<User | undefined> {
 		return this.get<User>(`users/${userId}`)
 	}
 }

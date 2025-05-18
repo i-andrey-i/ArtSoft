@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, OnChanges } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { Message } from '../../models/message.model'
@@ -11,14 +11,15 @@ import { MessageService } from '../../services/message.service'
 	imports: [FormsModule, CommonModule],
 	templateUrl: './chat.component.html',
 	styleUrls: ['./chat.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnChanges {
 	@Input() selectedChat: User | null = null
 	@Output() messageSent = new EventEmitter<Message>()
 	messages: Message[] = []
 	newMessage = ''
 
-	constructor(private messageService: MessageService) {}
+	constructor(private _messageService: MessageService) {}
 
 	ngOnInit(): void {
 		if (this.selectedChat) {
@@ -34,7 +35,7 @@ export class ChatComponent implements OnInit {
 
 	loadMessages(): void {
 		if (this.selectedChat) {
-			this.messageService
+			this._messageService
 				.getMessages(this.selectedChat.id)
 				.subscribe(messages => {
 					this.messages = messages
@@ -42,7 +43,7 @@ export class ChatComponent implements OnInit {
 		}
 	}
 
-	onSendMessage() {
+	onSendMessage(): void {
 		if (this.newMessage.trim() && this.selectedChat) {
 			//const message: Omit<Message, 'id'> = {
 			//	

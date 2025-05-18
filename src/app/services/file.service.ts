@@ -9,9 +9,9 @@ export class FileService extends BaseHttpService {
     constructor() {
         super()
     }
-    
-    getFile(filename: string): Observable<Blob> {
-        return this.get<Blob>(`file/${filename}`)
+
+    getFile(filename: string): Observable<File> {
+        return this.get<File>(`file/${filename}`)
     }
 
     // Возвращает имя файла, которое надо будет поместить в attachment
