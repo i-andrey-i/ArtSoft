@@ -24,4 +24,4 @@ _**Этот мессенджер выполнен в рамках проекта
 4. Запустить проект `ng serve`
 
 **Используемый стек:** 
-Angular, TypeScript, SCSS, Python, Fastapi, Sqlalchemy, Redis, Docker
+Angular, TypeScript, SCSS, Python, Fastapi, Sqlalchemy, Redis, Docker, Minio.
