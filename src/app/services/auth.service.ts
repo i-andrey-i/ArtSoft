@@ -1,59 +1,63 @@
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { BaseHttpService } from './base/base-http.service'
-import * as DTO from './dto/auth.dto'
+import { LoginDTO, RegisterDTO, RestorePasswordDTO, ChangePasswordDTO} from './dto/auth.dto'
 import { Token } from './models/token'
 import { tokenStore } from './models/token-store'
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseHttpService {
-	private isAuth = false
+	private _isAuth = false
 
-	login(dto: DTO.LoginDTO) {
+	constructor(private _router: Router) {
+		super()
+	}
+
+	login(dto: LoginDTO): void {
 		this.post<Token>('auth/login', dto)
 			.subscribe({
 				next: (t) => {
 					tokenStore.set(t);
-					this.isAuth = true
-					this.router.navigate(['/main'])
+					this._isAuth = true
+					this._router.navigate(['/main'])
 				}, 
 				error: console.log
 			})
 	}
 
-	register(dto: DTO.RegisterDTO) {
+	register(dto: RegisterDTO): void {
 		this.post('auth/register', dto)
 			.subscribe({
 				next: () => {
-					this.isAuth = true
-					this.router.navigate(['/login'])
+					this._isAuth = true
+					this._router.navigate(['/login'])
 				},
 				error: console.log
 			})
 	}
 
-	logout() {
+	logout(): void {
 		tokenStore.remove()
-		this.isAuth = false
-		this.router.navigate(['/login'])
+		this._isAuth = false
+		this._router.navigate(['/login'])
 	}
 
-	restorePassword(dto: DTO.RestorePasswordDTO) {
+	restorePassword(dto: RestorePasswordDTO): void {
 		this.post('auth/restore-password', dto)
 			.subscribe({
 				next: () => {
-					this.router.navigate(['/login'])
+					this._router.navigate(['/login'])
 				},
 				error: console.log
 		})
 	}
 
-	changePassword(dto: DTO.ChangePasswordDTO) {
+	changePassword(dto: ChangePasswordDTO): void {
 		this.post('auth/change-password', dto)
 			.subscribe({
 				next: () => {
-					this.router.navigate(['/login'])
+					this._router.navigate(['/login'])
 				},
 				error: console.log
 			})
@@ -61,10 +65,6 @@ export class AuthService extends BaseHttpService {
 
 
 	isAuthenticated(): boolean {
-		return this.isAuth
-	}
-
-	constructor(private router: Router) {
-		super()
+		return this._isAuth
 	}
 }

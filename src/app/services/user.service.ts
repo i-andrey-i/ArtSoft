@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import { User } from '../models/user.model'
-import { HttpClient } from '@angular/common/http'
 import { BaseHttpService } from './base/base-http.service'
 import { QueryOptions } from './models/options'
 
@@ -9,6 +8,10 @@ import { QueryOptions } from './models/options'
 	providedIn: 'root',
 })
 export class UserService extends BaseHttpService {
+	constructor() {
+		super()
+	}
+	
 	getUsers(options: QueryOptions = {}): Observable<User[]> {
 		return this.get<User[]>('users', options)
 	}
@@ -19,9 +22,5 @@ export class UserService extends BaseHttpService {
 
 	getUserById(userId: number): Observable<User | undefined> {
 		return this.get<User>(`users/${userId}`)
-	}
-
-	constructor() {
-		super()
 	}
 }

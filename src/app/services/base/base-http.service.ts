@@ -1,27 +1,29 @@
-import { HttpClient, HttpParams, HttpParamsOptions } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
+import { Params } from '../types/params';
 
 @Injectable({ providedIn: 'root' })
 export class BaseHttpService {
-    private http = inject(HttpClient);
-    private baseUrl = environment.ApiUrl;
+    private _http: HttpClient = inject(HttpClient);
+    private _baseUrl = environment.ApiUrl;
 
-    protected get<T>(url: string, params: Record<string, any> = {}) {
-        return this.http.get<T>(`${this.baseUrl}/${url}`, {
+    protected get<T>(url: string, params?: Params): Observable<T> {
+        return this._http.get<T>(`${this._baseUrl}/${url}`, {
             observe: 'body',
             params: params
         });
     }
 
-    protected post<T>(url: string, body: Record<string, any> = {}, xWWWFormUrlencoded = false) {
-        return this.http.post<T>(`${this.baseUrl}/${url}`, {
-            body: xWWWFormUrlencoded ? new URLSearchParams(body) : body
+    protected post<T>(url: string, body?: File | Params, xWWWFormUrlencoded = false): Observable<T> {
+        return this._http.post<T>(`${this._baseUrl}/${url}`, {
+            body: xWWWFormUrlencoded && !(body instanceof File) ? new URLSearchParams(body) : body
         });
     }
 
-    protected patch<T>(url: string, body: Record<string, string> = {}) {
-        return this.http.patch<T>(`${this.baseUrl}/${url}`, {
+    protected patch<T>(url: string, body?: Params): Observable<T> {
+        return this._http.patch<T>(`${this._baseUrl}/${url}`, {
             observe: 'body',
             body: body
         });
