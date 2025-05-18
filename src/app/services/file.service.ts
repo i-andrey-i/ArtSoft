@@ -9,6 +9,7 @@ export class FileService extends BaseHttpService {
     constructor() {
         super()
     }
+    
     getFile(filename: string): Observable<Blob> {
         return this.get<Blob>(`file/${filename}`)
     }
