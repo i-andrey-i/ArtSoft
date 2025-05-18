@@ -15,7 +15,7 @@ export interface RestorePasswordDTO {
 }
 
 export interface ChangePasswordDTO {
-    restore_token: string;
+    restoreToken: string;
     password: string;
     confirmPassword: string;
 }
