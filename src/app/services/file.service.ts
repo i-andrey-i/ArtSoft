@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'
 
 
 @Injectable({ providedIn: 'root' })
-export class MessageService extends BaseHttpService {
+export class FileService extends BaseHttpService {
     constructor() {
         super()
     }
