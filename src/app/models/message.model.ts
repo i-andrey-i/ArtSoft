@@ -1,8 +1,9 @@
 export interface Message {
 	id: number;
-	from_user_id: string;
-	is_read: boolean;
+	fromUserId: string;
+	isRead: boolean;
 	text: string;
-	created_at: string;
+	createdAt: string;
+	attachment?: string;
 }
 
