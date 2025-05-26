@@ -1,19 +1,17 @@
 @use '../../../styles.scss' as *;
 
 .messenger {
-	@include flexbox(row, flex-start, left);
 	background-color: $fields-color;
 	height: 100vh;
 	color: $text-color-white;
+	position: relative;
 }
 
 .sidebar {
-	width: 40vw;
+	width: 100%;
 	background-color: $background-color;
-	display: flex;
-	flex-direction: column;
 	height: 100vh;
-	border-right: 2px solid gray;
+	padding-bottom: 80px;
 }
 
 .search-container {
@@ -22,8 +20,8 @@
 	border: 1px solid #e0e0e0;
 	border-radius: 10px;
 	margin-top: 3vh;
-	margin-left: 2vw;
-	margin-right: 2vw;
+	margin-left: 8vw;
+	margin-right: 8vw;
 	@include flexbox(row, flex-start, left);
 	input{
 		background-color: $fields-color;
@@ -38,7 +36,7 @@
 
 .search-input {
 	width: 100%;
-	padding: 8px 12px;
+	padding: 12px 14px;
 	border-radius: 4px;
 	font-size: 14px;
 	outline: none;
@@ -51,17 +49,19 @@
 .user-list {
 	background-color: $background-color;
 	height: 100vh;
-	p{
-		margin-left: 3vw;
-		margin-top: 2vh;
-		font-size: $font-size-large
-	}
+}
+
+.sidebar-title{
+	margin-left: 8vw;
+	margin-top: 2vh;
+	font-size: $font-size-large;
+	font-weight: 500;
 }
 
 .user-item {
 	display: flex;
 	align-items: center;
-	padding: 12px 15px;
+	padding: 1.5vh 8vw;
 	cursor: pointer;
 	transition: background-color 0.2s;
 
@@ -75,8 +75,8 @@
 }
 
 .avatar {
-	width: 40px;
-	height: 40px;
+	width: 60px;
+	height: 60px;
 	border-radius: 50%;
 	margin-right: 12px;
 }
@@ -87,6 +87,7 @@
 
 .user-name {
 	font-weight: 500;
+	font-size: $font-size-base;
 	margin-bottom: 4px;
 }
 
@@ -113,10 +114,22 @@
 	padding-top: 2vh;
 }
 
-.resizer {
-	width: 5px;
-	background-color: $active-fields-color;
-	cursor: col-resize;
-	position: relative;
-	z-index: 10;
+.footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 10vh;
+	background-color: $fields-color;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.footer-logo {
+	height: 50px;
+	width: auto;
+	margin-bottom: 1vh;
+}
+

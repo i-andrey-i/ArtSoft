@@ -4,13 +4,18 @@
 			<h2>{{ selectedChat.name }}</h2>
 			<p>last seen never</p>
 		</div>
+		<div class="back-to-main" (click)="backToMain()">
+			<img src="assets/img/exit.svg" alt="back">
+		</div>
 	</div>
 
 	<div class="chat-messages">
+
 		<div
 			*ngFor="let message of messages"
 			class="message"
 			[class.sent]="message.fromUserId"
+			[@messageAnimation]
 		>
 			<div class="message-content">
 				<p>{{ message.text }}</p>
@@ -19,6 +24,7 @@
 				}}</span>
 			</div>
 		</div>
+
 	</div>
 
 	<div class="chat-input">

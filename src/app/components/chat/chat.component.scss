@@ -4,14 +4,18 @@
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
-	background-color: $fields-color;
+	background-color: $background-color;
 }
 
 .chat-header {
 	display: flex;
 	align-items: center;
 	padding: 15px;
-	background-color: $background-color;
+	background-color: $fields-color;
+}
+
+.back-to-main {
+	padding-left: 34vw;
 }
 
 .chat-info {
@@ -21,13 +25,15 @@
 
 .chat-info h2 {
 	margin: 0;
-	font-size: 16px;
+	font-size: 20px;
 	font-weight: 500;
+	color: $text-color-white;
+	width: 50vw;
 }
 
 .chat-info p {
 	margin: 4px 0 0;
-	font-size: 12px;
+	font-size: $font-size-small;
 	color: #666;
 }
 
@@ -80,21 +86,24 @@
 .chat-input {
 	display: flex;
 	padding: 15px;
-	background-color: $background-color;
+	background-color: $fields-color;
+	height: 8vh;
 }
 
 .chat-input input {
-	background-color: $background-color;
+	background-color: $fields-color;
 	flex: 1;
 	padding: 8px 12px;
 	font-size: 14px;
 	outline: none;
 	color: $text-color-gray;
+	font-size: 20px;
+
 }
 
 .chat-input button {
-	background-color: $background-color;
-	cursor: pointer;
+	background-color: $fields-color;
+		cursor: pointer;
 	transition: background-color 0.2s;
 }
 

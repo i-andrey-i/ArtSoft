@@ -76,7 +76,7 @@ export class MainComponent implements OnInit {
 					id: 101,
 					fromUserId: '1',
 					isRead: false,
-					text: 'Hello, how are you?',
+					text: "Hello, how are you?",
 					createdAt: '2025-04-28T10:15:00Z',
 				},
 				newMessagesCount: 2,
@@ -88,7 +88,7 @@ export class MainComponent implements OnInit {
 					id: 102,
 					fromUserId: '2',
 					isRead: false,
-					text: 'Let’s meet tomorrow.',
+					text: "Let's meet tomorrow.",
 					createdAt: '2025-04-28T09:50:00Z',
 				},
 				newMessagesCount: 10,
@@ -100,7 +100,7 @@ export class MainComponent implements OnInit {
 					id: 103,
 					fromUserId: '3',
 					isRead: true,
-					text: 'Can you send me the file?',
+					text: "Can you send me the file?",
 					createdAt: '2025-04-28T08:30:00Z',
 				},
 				newMessagesCount: 0,
@@ -120,7 +120,7 @@ export class MainComponent implements OnInit {
 	}
 
 	selectChat(chat: Chat): void {
-		this.selectedChat = chat
+		this._router.navigate(['/chat', chat.id]);
 	}
 
 	onSendMessage(message: Message): void {

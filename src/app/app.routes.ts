@@ -5,6 +5,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { RestorePasswordComponent } from './pages/restorePassword/restorePassword.component'
 import { ChangePasswordComponent } from './pages/changePassword/changePassword.component'
 import { MainComponent } from './pages/main/main.component'
+import { ChatPageComponent } from './pages/chat/chat.page.component'
 import { HttpClientModule } from '@angular/common/http';
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
 	{ path: 'restore', component: RestorePasswordComponent },
 	{ path: 'change', component: ChangePasswordComponent },
 	{ path: 'main', component: MainComponent },
+	{ path: 'chat/:id', component: ChatPageComponent },
 	{ path: '', redirectTo: '/login', pathMatch: 'full' },
 	{ path: '**', redirectTo: '/login' },
 ]

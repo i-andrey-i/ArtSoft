@@ -1,5 +1,6 @@
 <div class="messenger">
-    <div class="sidebar" [style.width.px]="sidebarWidth">
+    <div class="sidebar">
+        <p class="sidebar-title">Messages</p>
         <div class="search-container">
             <img src="assets/img/search-icon.svg" alt="search" />
             <input
@@ -12,7 +13,7 @@
         </div>
 
         <div class="user-list">
-            <p>Messages</p>
+            
             <div
                 *ngFor="let chat of filteredChats"
                 class="user-item"
@@ -29,17 +30,7 @@
             </div>
         </div>
     </div>
-
-    <!--<div class="resizer" (mousedown)="onResizeStart($event)"></div>-->
-
-    <div class="chat-container">
-        <app-chat
-                *ngIf="selectedChat"
-                [selectedChat]="selectedChat"
-                (messageSent)="onSendMessage($event)"
-        ></app-chat>
-        <div *ngIf="!selectedChat" class="no-chat-selected">
-            Select a user to start chatting
-        </div>
+    <div class="footer">
+        <img src="assets/img/messages-icon.svg" alt="logo" class="footer-logo" />
     </div>
 </div>
