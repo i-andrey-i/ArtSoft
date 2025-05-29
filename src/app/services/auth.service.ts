@@ -1,7 +1,8 @@
+import { HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { BaseHttpService } from './base/base-http.service'
-import { LoginDTO, RegisterDTO, RestorePasswordDTO, ChangePasswordDTO} from './dto/auth.dto'
+import { ChangePasswordDTO, LoginDTO, RegisterDTO, RestorePasswordDTO } from './dto/auth.dto'
 import { Token } from './models/token'
 import { tokenStore } from './models/token-store'
 
@@ -15,7 +16,11 @@ export class AuthService extends BaseHttpService {
 	}
 
 	login(dto: LoginDTO): void {
-		this.post<Token>('auth/login', dto)
+		const httpParams = new HttpParams()
+			.set('username', dto.username)
+			.set('password', dto.password)
+
+		this.post<Token>('auth/login', httpParams, true)
 			.subscribe({
 				next: (t) => {
 					tokenStore.set(t);

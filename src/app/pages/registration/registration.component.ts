@@ -1,42 +1,38 @@
-import { Component } from '@angular/core'
-import { CustomInputComponent } from '../../custom/custom-input/custom-input.component'
-import { CustomButtonComponent } from '../../custom/custom-button/custom-button.component'
+import { CommonModule } from '@angular/common'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
+import { AuthService } from '@app/services/auth.service'
+import { CustomButtonComponent } from '../../custom/custom-button/custom-button.component'
+import { CustomInputComponent } from '../../custom/custom-input/custom-input.component'
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-registration',
 	standalone: true,
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.scss'],
-	imports: [CustomInputComponent, CustomButtonComponent],
+	imports: [CustomInputComponent, CustomButtonComponent, ReactiveFormsModule, CommonModule],
 })
 export class RegistrationComponent {
-	email: string = ''
-	password: string = ''
-	confirmPassword: string = ''
-	name: string = ''
-	errorMessage: string = ''
-
-	constructor(private router: Router) {}
+	protected readonly registrationForm = new FormGroup({
+		email: new FormControl('', [Validators.required, Validators.email]),
+		password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+		confirmPassword: new FormControl('', [Validators.required]),
+		name: new FormControl('', [Validators.required]),
+	})
+	constructor(private _router: Router, private _authService: AuthService) {}
 
 	onRegisterClick(): void {
-		this.errorMessage = ''
-
-		/*if (!this.name || !this.email || !this.password || !this.confirmPassword) {
-			this.errorMessage = 'All fields are required'
+		if (this.registrationForm.invalid) {
 			return
 		}
 
-		if (this.password !== this.confirmPassword) {
-			this.errorMessage = 'Passwords do not match'
-			return
-		}
-
-		if (this.password.length < 6) {
-			this.errorMessage = 'Password must be at least 6 characters long'
-			return
-		}*/
-
-		this.router.navigate(['/main'])
+		this._authService.register({
+			name: this.registrationForm.value.name as string,
+			username: this.registrationForm.value.email as string,
+			password: this.registrationForm.value.password as string,
+			confirmPassword: this.registrationForm.value.confirmPassword as string,
+		})
 	}
 }

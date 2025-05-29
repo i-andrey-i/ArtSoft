@@ -1,26 +1,29 @@
 <div>
 	<img src="assets/img/user-square.svg" alt="user-square" />
 	<h1>Login</h1>
-	<app-custom-input
-		type="email"
-		placeholder="Your email..."
-		value="email"
-	></app-custom-input>
+	<div [formGroup]="loginForm">
+		<app-custom-input
+			formControlName="email"
+			type="email"
+			placeholder="Your email..."
+		/>
 
-	<app-custom-input
-		type="password"
-		placeholder="Your password..."
-		value="password"
-	></app-custom-input>
+		<app-custom-input
+			formControlName="password"
+			type="password"
+			placeholder="Your password..."
+		/>
 
-	<app-custom-button
-		text="Login"
-		color="#007bff"
-		(onClick)="onLoginClick()"
-	></app-custom-button>
-
+		<app-custom-button
+			text="Login"
+			color="#007bff"
+			type="submit"
+			[disabled]="loginForm.invalid"
+			(click)="onLoginClick()"
+		></app-custom-button>
+	</div>
 	<div class="links">
-		<a (click)="onRegisterClick()">Register</a>
-		<a (click)="onRestoreClick()">Forgot password?</a>
+		<a tabindex="0" (click)="onRegisterClick()" (keydown)="onRegisterClick()" (keyup)="onRegisterClick()" (keypress)="onRegisterClick()">Register</a>
+		<a tabindex="0" (click)="onRestoreClick()" (keydown)="onRestoreClick()" (keyup)="onRestoreClick()" (keypress)="onRestoreClick()">Forgot password?</a>
 	</div>
 </div>

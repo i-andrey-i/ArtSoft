@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { ChangePasswordComponent } from './pages/changePassword/changePassword.component'
+import { ChatPageComponent } from './pages/chat/chat.page.component'
 import { LoginComponent } from './pages/login/login.component'
+import { MainComponent } from './pages/main/main.component'
 import { RegistrationComponent } from './pages/registration/registration.component'
 import { RestorePasswordComponent } from './pages/restorePassword/restorePassword.component'
-import { ChangePasswordComponent } from './pages/changePassword/changePassword.component'
-import { MainComponent } from './pages/main/main.component'
-import { ChatPageComponent } from './pages/chat/chat.page.component'
-import { HttpClientModule } from '@angular/common/http';
 
 export const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
@@ -20,7 +19,7 @@ export const routes: Routes = [
 ]
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes), HttpClientModule],
+	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}

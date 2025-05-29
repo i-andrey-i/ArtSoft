@@ -1,20 +1,19 @@
-import { Component, OnInit, HostListener, ChangeDetectionStrategy } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { HttpClientModule } from '@angular/common/http'
+import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { ChatComponent } from '../../components/chat/chat.component'
+import { Router } from '@angular/router'
+import { Chat } from '../../models/chat.model'
+import { Message } from '../../models/message.model'
 import { MessageService } from '../../services/message.service'
 import { UserService } from '../../services/user.service'
-import { Message } from '../../models/message.model'
-import { Chat } from '../../models/chat.model'
-import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-main',
 	standalone: true,
-	imports: [CommonModule, FormsModule, ChatComponent, HttpClientModule],
+	imports: [CommonModule, FormsModule, HttpClientModule],
 	providers: [UserService, MessageService],
 	templateUrl: './main.component.html',
 	styleUrls: ['./main.component.scss'],
@@ -60,54 +59,12 @@ export class MainComponent implements OnInit {
 	}
 
 	loadUsers(): void {
-		/*
-		this.messageService.getChats().subscribe(chats => {
+		this._messageService.getChats().subscribe(chats => {
 			this.chats = chats;
 			this.filteredChats = chats;
 		})
-
-		 */
-		// Временные данные для верстки
-		this.chats = [
-			{
-				id: '1',
-				name: 'John Doe',
-				lastMessage: {
-					id: 101,
-					fromUserId: '1',
-					isRead: false,
-					text: "Hello, how are you?",
-					createdAt: '2025-04-28T10:15:00Z',
-				},
-				newMessagesCount: 2,
-			},
-			{
-				id: '2',
-				name: 'Jane Smith',
-				lastMessage: {
-					id: 102,
-					fromUserId: '2',
-					isRead: false,
-					text: "Let's meet tomorrow.",
-					createdAt: '2025-04-28T09:50:00Z',
-				},
-				newMessagesCount: 10,
-			},
-			{
-				id: '3',
-				name: 'Alice Johnson',
-				lastMessage: {
-					id: 103,
-					fromUserId: '3',
-					isRead: true,
-					text: "Can you send me the file?",
-					createdAt: '2025-04-28T08:30:00Z',
-				},
-				newMessagesCount: 0,
-			},
-		] as Chat[];
+ 
 		this.filteredChats = this.chats;
-
 	}
 
 	onSearch(): void {

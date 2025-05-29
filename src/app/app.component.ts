@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
 
@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router'
 	`,
 	styles: [],
 	imports: [RouterModule],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 	title = 'messenger'
