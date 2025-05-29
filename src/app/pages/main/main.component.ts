@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common'
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { ModalComponent } from '@app/components/modal/modal.component'
 import { Chat } from '../../models/chat.model'
-import { Message } from '../../models/message.model'
 import { MessageService } from '../../services/message.service'
 import { UserService } from '../../services/user.service'
 
@@ -30,7 +29,8 @@ export class MainComponent implements OnInit {
 	constructor(
 		private _userService: UserService,
 		private _messageService: MessageService,
-		private _router: Router
+		private _router: Router,
+		private _cdr: ChangeDetectorRef
 	) {
 		this._userService.getMe().subscribe({
 			next: () => {
@@ -65,6 +65,7 @@ export class MainComponent implements OnInit {
 		this._messageService.getChats().subscribe(chats => {
 			this.chats = chats;
 			this.filteredChats = chats;
+			this._cdr.markForCheck();
 		})
  
 		this.filteredChats = this.chats;
@@ -81,16 +82,6 @@ export class MainComponent implements OnInit {
 
 	selectChat(chat: Chat): void {
 		this._router.navigate(['/chat', chat.id]);
-	}
-
-	onSendMessage(message: Message): void {
-		if (this.selectedChat) {
-			this._messageService.sendMessage({
-				toUserId: this.selectedChat.id,
-				text: message.text,
-				createdAt: new Date().toLocaleString()
-			}).subscribe(() => {})
-		}
 	}
 
 	onResizeStart(event: MouseEvent): void {

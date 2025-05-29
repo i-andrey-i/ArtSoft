@@ -26,11 +26,12 @@
                 (keydown.enter)="selectChat(chat)"
                 tabindex="0"
             >
-                <img [src]="chat.id" [alt]="chat.name" class="avatar" />
+                <div class="avatar"></div>
                 <div class="user-info">
                     <div class="user-name">{{ chat.name }}</div>
-                    <div class="last-message">{{ chat.lastMessage }}</div>
+                    <div class="last-message">{{ chat.lastMessage.text }}</div>
                 </div>
+                <div class="new-messages-count">{{ chat.newMessagesCount }}</div>
             </div>
         </div>
         <div class="user-list" *ngIf="filteredChats.length === 0">

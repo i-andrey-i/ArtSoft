@@ -1,4 +1,4 @@
-<div class="chat" *ngIf="selectedChat !== undefined">
+<div class="chat">
 	<div class="chat-header">
 		<div class="chat-info">
 			<button class="back-arrow" (click)="backToMain()">
@@ -6,37 +6,25 @@
 			</button>
 			<div class="avatar"></div>
 			<data>
-				<h2>{{ selectedChat.name }}</h2>
+				<h2>{{ selectedChat?.name }}</h2>
 				<p>last seen never</p>
 			</data>
-		</div>
-		<div 
-			class="back-to-main" 
-			(click)="backToMain()"
-			(keydown.enter)="backToMain()"
-			tabindex="0"
-			role="button"
-		>
-			<img src="assets/img/exit.svg" alt="back">
 		</div>
 	</div>
 
 	<div class="chat-messages">
-
 		<div
 			*ngFor="let message of messages"
 			class="message"
-			[class.sent]="message.fromUserId"
 			[@messageAnimation]
 		>
 			<div class="message-content">
-				<p>{{ message.text }}</p>
-				<span class="message-time">{{
-					message.createdAt| date : 'shortTime'
-				}}</span>
+				<app-message [message]="message"></app-message>
 			</div>
 		</div>
-
+		<div class="chat-messages-empty" *ngIf="messages.length === 0">
+			<p>No messages yet</p>
+		</div>
 	</div>
 
 	<div class="chat-input">

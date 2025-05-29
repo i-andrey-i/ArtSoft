@@ -16,8 +16,8 @@ export class UserService extends BaseHttpService {
 		return this.get<User[]>('users', options)
 	}
 
-	getMe(): Observable<User[]> {
-		return this.get<User[]>('users/me')
+	getMe(): Observable<User> {
+		return this.get<User>('users/me')
 	}
 
 	getUserById(userId: string): Observable<User | undefined> {

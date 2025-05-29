@@ -1,10 +1,3 @@
-<div class="message">
-  <img [src]="'assets/img/user-square.svg'" alt="avatar" class="avatar">
-  <div class="content">
-    <h3>{{ user?.name ?? 'Unknown' }}</h3>
-    <p>{{ message.text }}</p>
-  </div>
-  <div class="unread" *ngIf="!message.isRead">
-    {{ message.isRead }}
-  </div>
-</div>
+<span [class]="`message ${message.active ? 'active' : ''}`" >
+  {{ message.text }}
+</span>

@@ -1,2 +1,18 @@
+.message {
+    display: flex;
+    padding: 16px;
+
+    border-radius: 16px;
+    background: #1E252F;
+    color: #fff;
+    max-width: 70dvw;
+
+    word-break: break-word;
+
+    &.active {
+        background: #4996F7;
+    }
+}
+
 
 

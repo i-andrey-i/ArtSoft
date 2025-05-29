@@ -1,10 +1,9 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
-import { MessageService } from '../../services/message.service'
 import { CommonModule } from '@angular/common'
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { Message } from '../../models/message.model'
-import { UserService } from '../../services/user.service'
-import { FileService } from '../../services/file.service'
 import { User } from '../../models/user.model'
+import { FileService } from '../../services/file.service'
+import { MessageService } from '../../services/message.service'
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,7 +13,7 @@ import { User } from '../../models/user.model'
 	templateUrl: './message.component.html',
 	styleUrls: ['./message.component.scss'],
 })
-export class MessageComponent {
+export class MessageComponent implements OnChanges {
 	@Input() message!: Message
 	user?: User;
 	file?: File;
@@ -22,23 +21,19 @@ export class MessageComponent {
 	constructor(
 		private _messageService: MessageService, 
 		private _fileService: FileService,
-		private _userService: UserService
 	) {
-		this._userService.getUserById(this.message.fromUserId).subscribe(user => {
-			if (!user) {
-				this.user = {
-					id: '',
-					name: ''
-				}
-			} else {
-				this.user = user
-			}
-		})
-
-		if (this.message.attachment) {
+		if (this.message?.attachment !== undefined) {
 			this._fileService.getFile(this.message.attachment).subscribe(file => {
 				this.file = file
 			})
 		}
 	}
+
+	ngOnChanges(changes: SimpleChanges): void {	
+		if (changes['message']) {
+			console.log(this.message)
+		}
+	}
+
+	ngOnO
 }

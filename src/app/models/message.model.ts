@@ -1,9 +1,10 @@
 export interface Message {
-	id: number;
+	id: string;
 	fromUserId: string;
 	isRead: boolean;
 	text: string;
 	createdAt: string;
+	active?: boolean;
 	attachment?: string;
 }
 
