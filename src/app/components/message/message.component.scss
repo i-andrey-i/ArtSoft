@@ -1,5 +1,8 @@
 .message {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2px;
     padding: 16px;
 
     border-radius: 16px;
@@ -11,7 +14,20 @@
 
     &.active {
         background: #4996F7;
+        justify-content: flex-end;
     }
+}
+
+.message-attachment {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+
+    cursor: pointer;
 }
 
 

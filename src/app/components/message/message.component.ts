@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input } from '@angular/core'
 import { Message } from '../../models/message.model'
 import { User } from '../../models/user.model'
 import { FileService } from '../../services/file.service'
@@ -13,27 +13,43 @@ import { MessageService } from '../../services/message.service'
 	templateUrl: './message.component.html',
 	styleUrls: ['./message.component.scss'],
 })
-export class MessageComponent implements OnChanges {
+export class MessageComponent implements AfterViewInit {
 	@Input() message!: Message
 	user?: User;
-	file?: File;
 
 	constructor(
 		private _messageService: MessageService, 
 		private _fileService: FileService,
-	) {
-		if (this.message?.attachment !== undefined) {
-			this._fileService.getFile(this.message.attachment).subscribe(file => {
-				this.file = file
+		private _elementRef: ElementRef
+	) {}
+
+	ngAfterViewInit(): void {
+		const observedElement = this._elementRef.nativeElement
+
+		const observer = new IntersectionObserver(() => {
+		  if (!this.message.isRead) {
+			this._messageService.read(this.message.id).subscribe({
+				next: () => {
+					this.message.isRead = true;
+				},
 			})
-		}
-	}
+		  }
+		})
+		observer.observe(observedElement)
+	  }
+	  
 
-	ngOnChanges(changes: SimpleChanges): void {	
-		if (changes['message']) {
-			console.log(this.message)
+	  downloadFile(): void {
+		if (this.message.attachment) {
+			this._fileService.download(this.message.attachment)
+				.subscribe(file => {
+					const url = window.URL.createObjectURL(file);
+					const a = document.createElement('a');
+					a.href = url;
+					a.download = this.message.attachment || '';
+					a.click();
+					window.URL.revokeObjectURL(url);
+				})
 		}
-	}
-
-	ngOnO
+	  }
 }

@@ -1,3 +1,6 @@
 <span [class]="`message ${message.active ? 'active' : ''}`" >
+  <button class="message-attachment" *ngIf="message.attachment" (click)="downloadFile()">
+    Скачать файл
+  </button>
   {{ message.text }}
 </span>

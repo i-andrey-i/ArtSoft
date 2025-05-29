@@ -67,22 +67,26 @@
 }
 
 .user-item {
+	width: calc(100dvw - 16vw);
 	display: flex;
 	align-items: center;
 	padding: 1.5vh 8vw;
 	cursor: pointer;
 	transition: background-color 0.2s;
+
+	box-sizing: content-box;
 }
 
 .avatar {
-	width: 60px;
-	height: 60px;
+	min-width: 60px;
+	min-height: 60px;
 	border-radius: 50%;
 	margin-right: 12px;
 }
 
 .user-info {
 	flex: 1;
+	overflow: hidden;
 }
 
 .user-name {
@@ -92,6 +96,7 @@
 }
 
 .last-message {
+	max-width: 100%;
 	font-size: 12px;
 	color: #666;
 	white-space: nowrap;
@@ -163,8 +168,8 @@
 	display:  flex;
 	justify-content: center;
 	align-items: center;
-	width: 32px;
-	height: 32px;
+	min-width: 32px;
+	min-height: 32px;
 	border-radius: 50%;
 	background-color: #4996F7;
 	color: $text-color-white;

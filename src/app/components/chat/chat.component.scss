@@ -43,7 +43,6 @@
 	data {
 		display: flex;
 		flex-direction: column;
-
 	}
 }
 
@@ -75,9 +74,19 @@
 
 .chat-input {
 	display: flex;
-	padding: 15px;
+	width: 100%;
 	background-color: $fields-color;
-	height: 8vh;
+	min-height: 8vh;
+	box-sizing: border-box;
+
+	&:has(.chat-input) {
+		padding: 15px;
+	}
+
+	&:has(.clear-attachment) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 
 .chat-input input {
@@ -91,7 +100,7 @@
 
 }
 
-.chat-input button {
+.chat-input > button:not(.clear-attachment) {
 	background-color: $fields-color;
 		cursor: pointer;
 	transition: background-color 0.2s;
@@ -136,4 +145,26 @@
 	justify-content: center;
 	align-items: flex-end;
 	
+}
+
+.chat-input-attachment {
+	padding: 4px;
+}
+
+.clear-attachment {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 7px;
+	padding: 4px 8px;
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 14px;
+
+	img {
+		width: 16px;
+		height: 16px;
+		opacity: 0.5;
+	}
 }

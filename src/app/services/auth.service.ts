@@ -21,7 +21,7 @@ export class AuthService extends BaseHttpService {
 			.set('username', dto.username)
 			.set('password', dto.password)
 
-		this.post<Token>('auth/login', httpParams, true)
+		this.post<Token>('auth/login', httpParams)
 			.subscribe({
 				next: (t) => {
 					tokenStore.set(t);

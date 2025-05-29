@@ -12,12 +12,11 @@
 		</div>
 	</div>
 
-	<div class="chat-messages">
+	<div class="chat-messages" #messageList [@messageAnimation]>
 		<div
 			*ngFor="let message of messages"
 			class="message"
-			[@messageAnimation]
-		>
+		>	
 			<div class="message-content">
 				<app-message [message]="message"></app-message>
 			</div>
@@ -28,15 +27,24 @@
 	</div>
 
 	<div class="chat-input">
-		<input
-			type="text"
-			placeholder="Write your message..."
-			[(ngModel)]="newMessage"
-			(keyup.enter)="onSendMessage()"
-		/>
-		<button (click)="onSendMessage()">
-			<img src="assets/img/send-arrow.svg" alt="send">
+		<button class="chat-input-attachment" (click)="onUploadAttachment()" *ngIf="!attachment">
+			<img src="assets/img/upload.svg" alt="upload attachment" />
 		</button>
+		<button class="clear-attachment" (click)="attachment = undefined" *ngIf="attachment">
+			<img src="assets/img/exit.svg" alt="clear attachment" />
+			не прикреплять файл
+		</button>
+		<div class="chat-input">
+			<input
+				type="text"
+				placeholder="Write your message..."
+				[(ngModel)]="newMessage"
+				(keyup.enter)="onSendMessage()"
+			/>
+			<button (click)="onSendMessage()">
+				<img src="assets/img/send-arrow.svg" alt="send">
+			</button>
+		</div>
 	</div>
 </div>
 

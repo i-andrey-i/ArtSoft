@@ -21,7 +21,6 @@
             <div
                 *ngFor="let chat of filteredChats"
                 class="user-item"
-                [class.active]="selectedChat?.id === chat.id"
                 (click)="selectChat(chat)"
                 (keydown.enter)="selectChat(chat)"
                 tabindex="0"
@@ -31,7 +30,7 @@
                     <div class="user-name">{{ chat.name }}</div>
                     <div class="last-message">{{ chat.lastMessage.text }}</div>
                 </div>
-                <div class="new-messages-count">{{ chat.newMessagesCount }}</div>
+                <div class="new-messages-count" *ngIf="chat.newMessagesCount > 0">{{ chat.newMessagesCount }}</div>
             </div>
         </div>
         <div class="user-list" *ngIf="filteredChats.length === 0">

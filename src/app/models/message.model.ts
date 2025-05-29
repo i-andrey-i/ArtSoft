@@ -4,6 +4,7 @@ export interface Message {
 	isRead: boolean;
 	text: string;
 	createdAt: string;
+	chatId?: string;
 	active?: boolean;
 	attachment?: string;
 }

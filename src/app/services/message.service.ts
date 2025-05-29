@@ -28,7 +28,9 @@ export class MessageService extends BaseHttpService {
 	}
 
 	read(messageId: string): Observable<unknown> {
-		return this.patch<unknown>(`messages/${messageId}/read`);
+		const path = `messages/${messageId}/read`;
+
+		return this.patch<unknown>(path);
 	}
 
 }

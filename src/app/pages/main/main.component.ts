@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common'
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { ModalComponent } from '@app/components/modal/modal.component'
+import { Message } from '@app/models/message.model'
+import { UpdateService } from '@app/services/update.service'
 import { Chat } from '../../models/chat.model'
 import { MessageService } from '../../services/message.service'
 import { UserService } from '../../services/user.service'
@@ -17,16 +19,17 @@ import { UserService } from '../../services/user.service'
 	styleUrls: ['./main.component.scss'],
 })
 
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
 	sidebarWidth: number = 200; // Начальная ширина sidebar
 	isResizing: boolean = false;
-
+	ws?: WebSocket;
 	chats: Chat[] = []
 	filteredChats: Chat[] = []
-	selectedChat: Chat | null = null
 	searchQuery: string = ''
+	
 
 	constructor(
+		private _updateService: UpdateService,
 		private _userService: UserService,
 		private _messageService: MessageService,
 		private _router: Router,
@@ -59,6 +62,19 @@ export class MainComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.loadUsers()
+		this.prepareWebSocket()
+	}
+
+	prepareWebSocket(): void {
+		this.ws = this._updateService.update((message: Message) => {
+			const chat = this.filteredChats.find(c => c.id == message.fromUserId);
+			if (chat) {
+				chat.lastMessage = message;
+				chat.newMessagesCount += 1;
+			}
+			console.log(chat)
+			this._cdr.markForCheck();
+		})
 	}
 
 	loadUsers(): void {
@@ -82,6 +98,11 @@ export class MainComponent implements OnInit {
 
 	selectChat(chat: Chat): void {
 		this._router.navigate(['/chat', chat.id]);
+		this.ws?.close()
+	}
+
+	ngOnDestroy(): void {
+		this.ws?.close()
 	}
 
 	onResizeStart(event: MouseEvent): void {
