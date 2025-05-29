@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
 import { AuthService } from '@app/services/auth.service'
+import { confirmPasswordValidator } from '@app/validators/confirm-password-validator'
 import { CustomButtonComponent } from '../../custom/custom-button/custom-button.component'
 import { CustomInputComponent } from '../../custom/custom-input/custom-input.component'
 
@@ -17,11 +17,13 @@ import { CustomInputComponent } from '../../custom/custom-input/custom-input.com
 export class RegistrationComponent {
 	protected readonly registrationForm = new FormGroup({
 		email: new FormControl('', [Validators.required, Validators.email]),
-		password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+		password: new FormControl('', [Validators.required, Validators.minLength(8)]),
 		confirmPassword: new FormControl('', [Validators.required]),
 		name: new FormControl('', [Validators.required]),
+	}, {
+		validators: [confirmPasswordValidator]
 	})
-	constructor(private _router: Router, private _authService: AuthService) {}
+	constructor(private _authService: AuthService) {}
 
 	onRegisterClick(): void {
 		if (this.registrationForm.invalid) {

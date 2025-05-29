@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component'
 import { MainComponent } from './pages/main/main.component'
 import { RegistrationComponent } from './pages/registration/registration.component'
 import { RestorePasswordComponent } from './pages/restorePassword/restorePassword.component'
+import { RedirectToDefaultComponent } from './pages/redirect/redirect-to-default'
 
 export const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
@@ -14,8 +15,8 @@ export const routes: Routes = [
 	{ path: 'change', component: ChangePasswordComponent },
 	{ path: 'main', component: MainComponent },
 	{ path: 'chat/:id', component: ChatPageComponent },
-	{ path: '', redirectTo: '/login', pathMatch: 'full' },
-	{ path: '**', redirectTo: '/login' },
+	{ path: '', component: RedirectToDefaultComponent },
+	{ path: '**', component: RedirectToDefaultComponent },
 ]
 
 @NgModule({

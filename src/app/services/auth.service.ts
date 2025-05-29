@@ -10,6 +10,7 @@ import { tokenStore } from './models/token-store'
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseHttpService {
 	private _isAuth = false
+	
 
 	constructor(private _router: Router) {
 		super()
@@ -35,7 +36,7 @@ export class AuthService extends BaseHttpService {
 		this.post('auth/register', dto)
 			.subscribe({
 				next: () => {
-					this._isAuth = true
+					this._isAuth = false
 					this._router.navigate(['/login'])
 				},
 				error: console.log

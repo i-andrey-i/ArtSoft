@@ -1,19 +1,23 @@
 <div class="messenger">
-    <div class="sidebar">
-        <p class="sidebar-title">Messages</p>
-        <div class="search-container">
+    <div class="sidebar">     
+        <div class="actions-container">
+            <p class="sidebar-title">Messages</p>
+            <app-modal></app-modal>
+        </div>
+        <div class="search-container" (click)="focusSearch()" (keydown.enter)="focusSearch()" tabindex="0">
             <img src="assets/img/search-icon.svg" alt="search" />
             <input
-                    type="text"
-                    [(ngModel)]="searchQuery"
-                    (ngModelChange)="onSearch()"
-                    placeholder="Search users..."
-                    class="search-input"
+                type="text"
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="onSearch()"
+                placeholder="Search"
+                class="search-input"
+                id="search-input"
             />
         </div>
 
-        <div class="user-list">
-            
+
+        <div class="user-list" *ngIf="filteredChats.length > 0">
             <div
                 *ngFor="let chat of filteredChats"
                 class="user-item"
@@ -28,6 +32,9 @@
                     <div class="last-message">{{ chat.lastMessage }}</div>
                 </div>
             </div>
+        </div>
+        <div class="user-list" *ngIf="filteredChats.length === 0">
+            <p class="no-results">No results found</p>
         </div>
     </div>
     <div class="footer">

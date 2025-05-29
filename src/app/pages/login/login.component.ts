@@ -23,7 +23,6 @@ export class LoginComponent {
 	constructor(private _router: Router, private _authService: AuthService) {}
 
 	onLoginClick(): void {
-		console.log(this.loginForm.value)
 		if (this.isLoginFormInvalid()) {
 			return;
 		}

@@ -6,19 +6,19 @@ import { Params } from '../types/params';
 
 @Injectable({ providedIn: 'root' })
 export class BaseHttpService {
-    private _http: HttpClient;
     private _baseUrl = environment.ApiUrl;
-    
+    private _http: HttpClient;
+
     constructor() {
         this._http = inject(HttpClient);
     }
 
     protected get<T>(url: string, params?: Params): Observable<T> {
         return this._http.get<T>(`${this._baseUrl}/${url}`, {
-            observe: 'body',
             params: params
         });
     }
+
     protected post<T>(url: string, body?: File | Params | FormData | HttpParams, xWWWFormUrlencoded = false): Observable<T> {
         return this._http.post<T>(`${this._baseUrl}/${url}`, body, {
             headers: new HttpHeaders({
@@ -28,9 +28,6 @@ export class BaseHttpService {
     }
 
     protected patch<T>(url: string, body?: Params): Observable<T> {
-        return this._http.patch<T>(`${this._baseUrl}/${url}`, {
-            observe: 'body',
-            body: body
-        });
+        return this._http.patch<T>(`${this._baseUrl}/${url}`, body);
     }
 }

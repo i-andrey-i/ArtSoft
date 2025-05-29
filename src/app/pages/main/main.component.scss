@@ -2,34 +2,43 @@
 
 .messenger {
 	background-color: $fields-color;
-	height: 100vh;
+	height: 100dvh;
 	color: $text-color-white;
 	position: relative;
+	box-sizing: content-box;
 }
 
 .sidebar {
 	width: 100%;
 	background-color: $background-color;
-	height: 100vh;
+	height: 100%;
 	padding-bottom: 80px;
 }
 
 .search-container {
+	width: calc(100dvw - 16vw);
+	cursor: pointer;
+	margin: 0 auto;
+	margin-top: 2vh;
 	padding-left: 1vh;
 	background-color: $fields-color;
-	border: 1px solid #e0e0e0;
+	border: none;
 	border-radius: 10px;
-	margin-top: 3vh;
-	margin-left: 8vw;
-	margin-right: 8vw;
-	@include flexbox(row, flex-start, left);
+	box-sizing: content-box;
+	@include flexbox(row, center, left);
 	input{
 		background-color: $fields-color;
 		border-radius: 30px;
 		color: $text-color-gray;
+
+		transition: width 0.2s ease-in-out;
+	}
+	input:not(:focus){
+		width: 70px;
 	}
 	img{
-		height: 2.5vh;
+		width: 18px;
+		height: 18px;
 		align-self: center;
 	}
 }
@@ -48,12 +57,11 @@
 
 .user-list {
 	background-color: $background-color;
-	height: 100vh;
+	height: auto;
+	box-sizing: content-box;
 }
 
 .sidebar-title{
-	margin-left: 8vw;
-	margin-top: 2vh;
 	font-size: $font-size-large;
 	font-weight: 500;
 }
@@ -115,7 +123,7 @@
 }
 
 .footer {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -128,8 +136,25 @@
 }
 
 .footer-logo {
-	height: 50px;
+	height: 36px;
 	width: auto;
 	margin-bottom: 1vh;
 }
 
+.no-results {
+	text-align: center;
+	font-size: $font-size-base;
+	color: $text-color-gray;
+	margin-top: 2vh;
+}
+
+.actions-container {
+	margin-top: 3vh;
+	width: calc(100% - 16vw);
+	padding: 0 8vw;
+	box-sizing: content-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}

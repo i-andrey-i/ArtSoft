@@ -1,11 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, OnChanges } from '@angular/core'
-import { FormsModule } from '@angular/forms'
+import { animate, style, transition, trigger } from '@angular/animations'
 import { CommonModule } from '@angular/common'
-import { Message } from '../../models/message.model'
-import { User } from '../../models/user.model'
-import { MessageService } from '../../services/message.service'
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { trigger, transition, style, animate, query, stagger } from '@angular/animations'
+import { User } from '@app/models/user.model'
+import { UserService } from '@app/services/user.service'
+import { Message } from '../../models/message.model'
+import { MessageService } from '../../services/message.service'
 
 @Component({
 	selector: 'app-chat',
@@ -23,26 +24,25 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
 		])
 	]
 })
-export class ChatComponent implements OnInit, OnChanges {
-	@Input() selectedChat: User | null = null
-	@Output() messageSent = new EventEmitter<Message>()
+export class ChatComponent implements OnInit {
+	@Input() chatId: string | undefined = undefined;
+
 	messages: Message[] = []
-	newMessage = ''
+	selectedChat?: User;
+	isEmptyChat: boolean = false
+	newMessage: string = ''
 
 	constructor(
+		private _userService: UserService,
 		private _messageService: MessageService,
-		private _router: Router
-	) {}
-
-	ngOnInit(): void {
-		if (this.selectedChat) {
-			this.loadMessages()
-		}
+		private _router: Router,
+	) {
 	}
 
-	ngOnChanges(): void {
-		if (this.selectedChat) {
-			this.loadMessages()
+	ngOnInit(): void {
+		if (this.chatId) {
+			this.loadChatInfo()
+			this.loadMessages()	
 		}
 	}
 
@@ -50,24 +50,36 @@ export class ChatComponent implements OnInit, OnChanges {
 		this._router.navigate(['/main']);
 	}
 
+	loadChatInfo(): void {
+		if (this.chatId) {
+			this._userService.getUserById(this.chatId).subscribe({
+				next: (user) => {
+					this.selectedChat = user;
+				},
+				error: () => {
+					this.isEmptyChat = true;
+				}
+			})
+		}
+	}
 	loadMessages(): void {
-		if (this.selectedChat) {
+		if (this.chatId) {
 			this._messageService
-				.getMessages(this.selectedChat.id)
-				.subscribe(messages => {
-					this.messages = messages
+				.getMessages(this.chatId, {
+					limit: 100,
+					offset: 0
 				})
+				.subscribe({
+					next: (messages) => {
+						this.messages = messages
+					},
+					error: () => {
+						this.isEmptyChat = true;
+					}
+			})
 		}
 	}
 
 	onSendMessage(): void {
-		if (this.newMessage.trim() && this.selectedChat) {
-			//const message: Omit<Message, 'id'> = {
-			//	
-			//}
-			//this.messages = [...this.messages, message]
-			//this.messageSent.emit(message)
-			this.newMessage = ''
-		}
 	}
 }

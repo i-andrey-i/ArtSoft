@@ -1,26 +1,24 @@
 import { CommonModule } from '@angular/common'
-import { HttpClientModule } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
+import { ModalComponent } from '@app/components/modal/modal.component'
 import { Chat } from '../../models/chat.model'
 import { Message } from '../../models/message.model'
 import { MessageService } from '../../services/message.service'
 import { UserService } from '../../services/user.service'
 
-
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-main',
 	standalone: true,
-	imports: [CommonModule, FormsModule, HttpClientModule],
+	imports: [CommonModule, FormsModule, ModalComponent],
 	providers: [UserService, MessageService],
 	templateUrl: './main.component.html',
 	styleUrls: ['./main.component.scss'],
 })
 
 export class MainComponent implements OnInit {
-
 	sidebarWidth: number = 200; // Начальная ширина sidebar
 	isResizing: boolean = false;
 
@@ -34,8 +32,13 @@ export class MainComponent implements OnInit {
 		private _messageService: MessageService,
 		private _router: Router
 	) {
-		this._userService.getMe().subscribe(user => {
-			console.log(user)
+		this._userService.getMe().subscribe({
+			next: () => {
+				this.loadUsers()
+			},
+			error: () => {
+				this._router.navigate(['/login'])
+			}
 		})
 	}
 
@@ -93,5 +96,12 @@ export class MainComponent implements OnInit {
 	onResizeStart(event: MouseEvent): void {
 		this.isResizing = true;
 		event.preventDefault();
+	}
+
+	focusSearch(): void {
+		const searchInput = document.getElementById('search-input');
+		if (searchInput) {
+			searchInput.focus();
+		}
 	}
 }

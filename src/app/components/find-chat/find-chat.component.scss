@@ -1,0 +1,15 @@
+.find-chat {
+    color: #4996F7;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    &:hover {
+        color: lighten($color: #4996F7, $amount: 10%);
+    }
+    cursor: pointer;
+
+    width: max-content;
+}

@@ -1,10 +1,22 @@
-<div class="chat" *ngIf="selectedChat">
+<div class="chat" *ngIf="selectedChat !== undefined">
 	<div class="chat-header">
 		<div class="chat-info">
-			<h2>{{ selectedChat.name }}</h2>
-			<p>last seen never</p>
+			<button class="back-arrow" (click)="backToMain()">
+				<img src="assets/img/back.svg" alt="back">
+			</button>
+			<div class="avatar"></div>
+			<data>
+				<h2>{{ selectedChat.name }}</h2>
+				<p>last seen never</p>
+			</data>
 		</div>
-		<div class="back-to-main" (click)="backToMain()">
+		<div 
+			class="back-to-main" 
+			(click)="backToMain()"
+			(keydown.enter)="backToMain()"
+			tabindex="0"
+			role="button"
+		>
 			<img src="assets/img/exit.svg" alt="back">
 		</div>
 	</div>
@@ -40,6 +52,6 @@
 	</div>
 </div>
 
-<div class="no-chat-selected" *ngIf="!selectedChat">
+<div class="no-chat-selected" *ngIf="selectedChat === null">
 	<p>Select a chat to start messaging</p>
 </div>

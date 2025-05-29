@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+@use '../../../styles.scss' as *;
 
 .chat {
 	display: flex;
@@ -19,22 +19,32 @@
 }
 
 .chat-info {
-	margin-left: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 10px;
+	margin-left: 0px;
 	color: $text-color-gray;
-}
+	
+	h2 {
+		margin: 0;
+		font-size: 18px;
+		font-weight: 500;
+		color: $text-color-white;
+		width: 50vw;
+	}
 
-.chat-info h2 {
-	margin: 0;
-	font-size: 20px;
-	font-weight: 500;
-	color: $text-color-white;
-	width: 50vw;
-}
+	p {
+		font-size: 16px;
+		color: #fff;
+		opacity: 0.5;
+	}
 
-.chat-info p {
-	margin: 4px 0 0;
-	font-size: $font-size-small;
-	color: #666;
+	data {
+		display: flex;
+		flex-direction: column;
+
+	}
 }
 
 .chat-messages {
@@ -107,9 +117,6 @@
 	transition: background-color 0.2s;
 }
 
-.chat-input button:hover {
-	background-color: #1976d2;
-}
 
 .no-chat-selected {
 	display: flex;
@@ -118,4 +125,21 @@
 	height: 100%;
 	color: #666;
 	font-size: 16px;
+}
+
+.avatar {
+	display: block;
+	min-width: 32px;
+	min-height: 32px;
+	border-radius: 50%;
+	background-color: #13171D;
+}
+.back-arrow {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
+
+	padding: 4px;
+	min-width: 18px;
 }

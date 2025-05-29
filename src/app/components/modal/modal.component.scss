@@ -1,0 +1,23 @@
+.modal-input {
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 18px;
+   
+    padding: 0 18px;
+    background: #1E252F;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.user-list {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

@@ -1,14 +1,15 @@
-import { Token } from './token'
+import { Token } from './token';
 
 const tokenKey = 'token' as const;
 
 const get = (): Token | undefined => {
     const item = localStorage.getItem(tokenKey);
-    if (!item) {
+
+    if (item == null) {
         return undefined;
     }
 
-    return JSON.parse(item)
+    return JSON.parse(item) as Token
 }
 
 const set = (token: Token): void => {
