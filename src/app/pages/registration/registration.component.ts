@@ -1,42 +1,45 @@
-import { Component } from '@angular/core'
-import { CustomInputComponent } from '../../custom/custom-input/custom-input.component'
-import { CustomButtonComponent } from '../../custom/custom-button/custom-button.component'
-import { Router } from '@angular/router'
+import { Component, OnInit } from "@angular/core";
+import { CustomInputComponent } from "../../custom/custom-input/custom-input.component";
+import { CustomButtonComponent } from "../../custom/custom-button/custom-button.component";
+import { Router } from "@angular/router";
+import { ReactiveFormsModule } from "@angular/forms";
+import {
+    RegistrationFormModel,
+    RegistrationFormData,
+} from "../../models/registration-form.model";
+import { FormBuilder } from "@angular/forms";
 
 @Component({
-	selector: 'app-registration',
-	standalone: true,
-	templateUrl: './registration.component.html',
-	styleUrls: ['./registration.component.scss'],
-	imports: [CustomInputComponent, CustomButtonComponent],
+    selector: "app-registration",
+    standalone: true,
+    templateUrl: "./registration.component.html",
+    styleUrls: ["./registration.component.scss"],
+    imports: [CustomInputComponent, CustomButtonComponent, ReactiveFormsModule],
 })
-export class RegistrationComponent {
-	email: string = ''
-	password: string = ''
-	confirmPassword: string = ''
-	name: string = ''
-	errorMessage: string = ''
+export class RegistrationComponent implements OnInit {
+    formModel: RegistrationFormModel;
+    errorMessage: string = "";
 
-	constructor(private router: Router) {}
+    constructor(private router: Router, private fb: FormBuilder) {
+        this.formModel = new RegistrationFormModel(fb);
+    }
 
-	onRegisterClick(): void {
-		this.errorMessage = ''
+    ngOnInit(): void {
+       
+    }
 
-		/*if (!this.name || !this.email || !this.password || !this.confirmPassword) {
-			this.errorMessage = 'All fields are required'
-			return
-		}
+    onRegisterClick(): void {
+        const formData = this.formModel.getFormData();
+        if (formData) {
+           
+            console.log("Registration data:", formData);
+            this.router.navigate(["/main"]);
+        } else {
+            this.errorMessage = "Please fill in all fields correctly";
+        }
+    }
 
-		if (this.password !== this.confirmPassword) {
-			this.errorMessage = 'Passwords do not match'
-			return
-		}
-
-		if (this.password.length < 6) {
-			this.errorMessage = 'Password must be at least 6 characters long'
-			return
-		}*/
-
-		this.router.navigate(['/main'])
-	}
+    getErrorMessage(controlName: string): string {
+        return this.formModel.getErrorMessage(controlName);
+    }
 }
