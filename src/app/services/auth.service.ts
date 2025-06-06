@@ -1,70 +1,68 @@
-import { Injectable } from '@angular/core'
-import { Router } from '@angular/router'
-import { BaseHttpService } from './base/base-http.service'
-import * as DTO from './dto/auth.dto'
-import { Token } from './models/token'
-import { tokenStore } from './models/token-store'
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { BaseHttpService } from "./base/base-http.service";
+import * as DTO from "./dto/auth.dto";
+import { Token } from "./models/token";
+import { tokenStore } from "./models/token-store";
+import { ErrorHandlerService } from "./error-handler.service";
 
-
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AuthService extends BaseHttpService {
-	private isAuth = false
+    private isAuth = false;
 
-	login(dto: DTO.LoginDTO) {
-		this.post<Token>('auth/login', dto)
-			.subscribe({
-				next: (t) => {
-					tokenStore.set(t);
-					this.isAuth = true
-					this.router.navigate(['/main'])
-				}, 
-				error: console.log
-			})
-	}
+    constructor(
+        private router: Router,
+        private _errorHandler: ErrorHandlerService
+    ) {
+        super();
+    }
 
-	register(dto: DTO.RegisterDTO) {
-		this.post('auth/register', dto)
-			.subscribe({
-				next: () => {
-					this.isAuth = true
-					this.router.navigate(['/login'])
-				},
-				error: console.log
-			})
-	}
+    login(dto: DTO.LoginDTO) {
+        this.post<Token>("auth/login", dto).subscribe({
+            next: (t) => {
+                tokenStore.set(t);
+                this.isAuth = true;
+                this.router.navigate(["/main"]);
+            },
+            error: (error) => this._errorHandler.handleError(error),
+        });
+    }
 
-	logout() {
-		tokenStore.remove()
-		this.isAuth = false
-		this.router.navigate(['/login'])
-	}
+    register(dto: DTO.RegisterDTO) {
+        this.post("auth/register", dto).subscribe({
+            next: () => {
+                this.isAuth = true;
+                this.router.navigate(["/login"]);
+            },
+            error: (error) => this._errorHandler.handleError(error),
+        });
+    }
 
-	restorePassword(dto: DTO.RestorePasswordDTO) {
-		this.post('auth/restore-password', dto)
-			.subscribe({
-				next: () => {
-					this.router.navigate(['/login'])
-				},
-				error: console.log
-		})
-	}
+    logout() {
+        tokenStore.remove();
+        this.isAuth = false;
+        this.router.navigate(["/login"]);
+    }
 
-	changePassword(dto: DTO.ChangePasswordDTO) {
-		this.post('auth/change-password', dto)
-			.subscribe({
-				next: () => {
-					this.router.navigate(['/login'])
-				},
-				error: console.log
-			})
-	}
+    restorePassword(dto: DTO.RestorePasswordDTO) {
+        this.post("auth/restore-password", dto).subscribe({
+            next: () => {
+                this.router.navigate(["/login"]);
+            },
+            error: (error) => this._errorHandler.handleError(error),
+        });
+    }
 
+    changePassword(dto: DTO.ChangePasswordDTO) {
+        this.post("auth/change-password", dto).subscribe({
+            next: () => {
+                this.router.navigate(["/login"]);
+            },
+            error: (error) => this._errorHandler.handleError(error),
+        });
+    }
 
-	isAuthenticated(): boolean {
-		return this.isAuth
-	}
-
-	constructor(private router: Router) {
-		super()
-	}
+    isAuthenticated(): boolean {
+        return this.isAuth;
+    }
 }
