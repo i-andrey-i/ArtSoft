@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: "app-file-upload",
+    selector: 'app-file-upload',
     standalone: true,
     imports: [CommonModule, FormsModule],
     template: `

@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export interface RegistrationFormData {
     email: string;
@@ -8,15 +8,15 @@ export interface RegistrationFormData {
 }
 
 export class RegistrationFormModel {
-    private form: FormGroup;
+    private readonly form: FormGroup;
 
-    constructor(private fb: FormBuilder) {
+    constructor(private readonly fb: FormBuilder) {
         this.form = this.fb.group(
             {
-                email: ["", [Validators.required, Validators.email]],
-                password: ["", [Validators.required, Validators.minLength(6)]],
-                confirmPassword: ["", [Validators.required]],
-                name: ["", [Validators.required, Validators.minLength(2)]],
+                email: ['', [Validators.required, Validators.email]],
+                password: ['', [Validators.required, Validators.minLength(6)]],
+                confirmPassword: ['', [Validators.required]],
+                name: ['', [Validators.required, Validators.minLength(2)]],
             },
             {
                 validators: this.passwordMatchValidator,
@@ -24,9 +24,9 @@ export class RegistrationFormModel {
         );
     }
 
-    private passwordMatchValidator(form: FormGroup) {
-        const password = form.get("password");
-        const confirmPassword = form.get("confirmPassword");
+    private passwordMatchValidator(form: FormGroup): void {
+        const password = form.get('password');
+        const confirmPassword = form.get('confirmPassword');
 
         if (password?.value !== confirmPassword?.value) {
             confirmPassword?.setErrors({ passwordMismatch: true });
@@ -35,38 +35,41 @@ export class RegistrationFormModel {
         }
     }
 
-    getForm(): FormGroup {
+    public getForm(): FormGroup {
         return this.form;
     }
 
-    getFormData(): RegistrationFormData | null {
+    public getFormData(): RegistrationFormData | null {
         if (this.form.valid) {
             return this.form.value;
         }
+
         return null;
     }
 
-    getErrorMessage(controlName: string): string {
+    public getErrorMessage(controlName: string): string {
         const control = this.form.get(controlName);
-        if (!control) return "";
+        if (!control) return '';
 
-        if (control.hasError("required")) {
-            return "This field is required";
+        if (control.hasError('required')) {
+            return 'This field is required';
         }
-        if (control.hasError("email")) {
-            return "Please enter a valid email";
+        if (control.hasError('email')) {
+            return 'Please enter a valid email';
         }
-        if (control.hasError("minlength")) {
-            const requiredLength = control.errors?.["minlength"].requiredLength;
+        if (control.hasError('minlength')) {
+            const requiredLength = control.errors?.['minlength'].requiredLength;
+
             return `Minimum length is ${requiredLength} characters`;
         }
-        if (control.hasError("passwordMismatch")) {
-            return "Passwords do not match";
+        if (control.hasError('passwordMismatch')) {
+            return 'Passwords do not match';
         }
-        return "";
+
+        return '';
     }
 
-    resetForm(): void {
+    public resetForm(): void {
         this.form.reset();
     }
 }

@@ -1,8 +1,8 @@
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: "app-model",
+    selector: 'app-model',
     standalone: true,
     imports: [CommonModule],
     template: `

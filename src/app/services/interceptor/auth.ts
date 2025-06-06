@@ -1,5 +1,5 @@
-import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
-import { tokenStore } from "../models/token-store";
+import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { tokenStore } from '../models/token-store';
 
 export const authInterceptor: HttpInterceptorFn = (
     req: HttpRequest<unknown>, 
@@ -12,5 +12,6 @@ export const authInterceptor: HttpInterceptorFn = (
             headers: req.headers.set('Authorization', `Bearer ${userToken}`),
         });
     }
+
     return next(req);
 };

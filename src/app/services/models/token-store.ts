@@ -1,4 +1,4 @@
-import { Token } from "./token"
+import { Token } from './token'
 
 const TOKEN_KEY = 'token'
 
@@ -7,6 +7,7 @@ const get = (): Token | undefined => {
     if (!item) {
         return undefined;
     }
+
     return JSON.parse(item)
 }
 
