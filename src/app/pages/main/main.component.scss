@@ -1,26 +1,51 @@
+@use '../../../styles.scss' as *;
+
 .messenger {
-	display: flex;
-	height: 100vh;
-	background-color: #f5f5f5;
+	background-color: $fields-color;
+	height: 100dvh;
+	color: $text-color-white;
+	position: relative;
+	box-sizing: content-box;
 }
 
 .sidebar {
-	width: 300px;
-	background-color: #fff;
-	border-right: 1px solid #e0e0e0;
-	display: flex;
-	flex-direction: column;
+	width: 100%;
+	background-color: $background-color;
+	height: 100%;
+	padding-bottom: 80px;
 }
 
 .search-container {
-	padding: 15px;
-	border-bottom: 1px solid #e0e0e0;
+	width: calc(100dvw - 16vw);
+	cursor: pointer;
+	margin: 0 auto;
+	margin-top: 2vh;
+	padding-left: 1vh;
+	background-color: $fields-color;
+	border: none;
+	border-radius: 10px;
+	box-sizing: content-box;
+	@include flexbox(row, center, left);
+	input{
+		background-color: $fields-color;
+		border-radius: 30px;
+		color: $text-color-gray;
+
+		transition: width 0.2s ease-in-out;
+	}
+	input:not(:focus){
+		width: 70px;
+	}
+	img{
+		width: 18px;
+		height: 18px;
+		align-self: center;
+	}
 }
 
 .search-input {
 	width: 100%;
-	padding: 8px 12px;
-	border: 1px solid #e0e0e0;
+	padding: 12px 14px;
 	border-radius: 4px;
 	font-size: 14px;
 	outline: none;
@@ -31,43 +56,47 @@
 }
 
 .user-list {
-	flex: 1;
-	overflow-y: auto;
+	background-color: $background-color;
+	height: auto;
+	box-sizing: content-box;
+}
+
+.sidebar-title{
+	font-size: $font-size-large;
+	font-weight: 500;
 }
 
 .user-item {
+	width: calc(100dvw - 16vw);
 	display: flex;
 	align-items: center;
-	padding: 12px 15px;
+	padding: 1.5vh 8vw;
 	cursor: pointer;
 	transition: background-color 0.2s;
 
-	&:hover {
-		background-color: #f5f5f5;
-	}
-
-	&.active {
-		background-color: #e3f2fd;
-	}
+	box-sizing: content-box;
 }
 
 .avatar {
-	width: 40px;
-	height: 40px;
+	min-width: 60px;
+	min-height: 60px;
 	border-radius: 50%;
 	margin-right: 12px;
 }
 
 .user-info {
 	flex: 1;
+	overflow: hidden;
 }
 
 .user-name {
 	font-weight: 500;
+	font-size: $font-size-base;
 	margin-bottom: 4px;
 }
 
 .last-message {
+	max-width: 100%;
 	font-size: 12px;
 	color: #666;
 	white-space: nowrap;
@@ -79,13 +108,73 @@
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	background-color: $fields-color;
 }
 
 .no-chat-selected {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	background-color: $fields-color;
 	height: 100%;
-	color: #666;
-	font-size: 16px;
+	color: $text-color-white;
+	font-size: $font-size-large;
+	padding-top: 2vh;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 10vh;
+	background-color: $fields-color;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-logo {
+	height: 36px;
+	width: auto;
+	margin-bottom: 1vh;
+}
+
+.no-results {
+	text-align: center;
+	font-size: $font-size-base;
+	color: $text-color-gray;
+	margin-top: 2vh;
+}
+
+.actions-container {
+	margin-top: 3vh;
+	width: calc(100% - 16vw);
+	padding: 0 8vw;
+	box-sizing: content-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
+.avatar {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	margin-right: 12px;
+	background-color: #1E252F;
+}
+
+.new-messages-count {
+	display:  flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 32px;
+	min-height: 32px;
+	border-radius: 50%;
+	background-color: #4996F7;
+	color: $text-color-white;
+	font-size: 12px;
+	font-weight: 500;
+	text-align: center;
+	
 }

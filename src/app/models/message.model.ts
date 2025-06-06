@@ -1,7 +1,11 @@
 export interface Message {
-	id: number
-	senderId: number
-	receiverId: number
-	content: string
-	timestamp: Date
+	id: string;
+	fromUserId: string;
+	isRead: boolean;
+	text: string;
+	createdAt: string;
+	chatId?: string;
+	active?: boolean;
+	attachment?: string;
 }
+

@@ -1,44 +1,36 @@
-import { Injectable } from '@angular/core'
-import { Observable, of } from 'rxjs'
-import { Message } from '../models/message.model'
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Chat } from '../models/chat.model';
+import { Message } from '../models/message.model';
+import { BaseHttpService } from './base/base-http.service';
+import { MessageSendDTO } from './dto/message.dto';
+import { PaginationOptions, QueryOptions } from './models/options';
 
 @Injectable({ providedIn: 'root' })
-export class MessageService {
-	private messages: Message[] = [
-		{
-			id: 1,
-			senderId: 1,
-			receiverId: 2,
-			content: 'Hey, how are you?',
-			timestamp: new Date('2024-02-20T10:30:00'),
-		},
-		{
-			id: 2,
-			senderId: 2,
-			receiverId: 1,
-			content: "I'm good, thanks! How about you?",
-			timestamp: new Date('2024-02-20T10:32:00'),
-		},
-		{
-			id: 3,
-			senderId: 1,
-			receiverId: 2,
-			content: 'Doing well! Want to meet up later?',
-			timestamp: new Date('2024-02-20T10:33:00'),
-		},
-	]
-
-	getMessages(userId: number): Observable<Message[]> {
-		return of(
-			this.messages.filter(
-				msg => msg.senderId === userId || msg.receiverId === userId
-			)
-		)
+export class MessageService extends BaseHttpService {
+	constructor() {
+		super()
 	}
 
-	sendMessage(message: Message): Observable<Message> {
-		message.id = this.messages.length + 1
-		this.messages.push(message)
-		return of(message)
+	getChats(options: QueryOptions = {}): Observable<Chat[]> {
+		return this.get<Chat[]>('messages', options);
 	}
+
+	getMessages(
+		chatId: string, 
+		options: PaginationOptions = {}
+	): Observable<Message[]> {
+		return this.get<Message[]>(`messages/${chatId}`, options);
+	}
+
+	sendMessage(message: MessageSendDTO): Observable<string> {
+		return this.post<string>('messages', message);
+	}
+
+	read(messageId: string): Observable<unknown> {
+		const path = `messages/${messageId}/read`;
+
+		return this.patch<unknown>(path);
+	}
+
 }

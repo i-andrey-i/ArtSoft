@@ -1,39 +1,43 @@
 <div class="messenger">
-	<div class="sidebar">
-		<div class="search-container">
-			<input
-				type="text"
-				[(ngModel)]="searchQuery"
-				(ngModelChange)="onSearch()"
-				placeholder="Search users..."
-				class="search-input"
-			/>
-		</div>
+    <div class="sidebar">     
+        <div class="actions-container">
+            <p class="sidebar-title">Messages</p>
+            <app-modal></app-modal>
+        </div>
+        <div class="search-container" (click)="focusSearch()" (keydown.enter)="focusSearch()" tabindex="0">
+            <img src="assets/img/search-icon.svg" alt="search" />
+            <input
+                type="text"
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="onSearch()"
+                placeholder="Search"
+                class="search-input"
+                id="search-input"
+            />
+        </div>
 
-		<div class="user-list">
-			<div
-				*ngFor="let user of filteredUsers"
-				class="user-item"
-				[class.active]="selectedUser?.id === user.id"
-				(click)="selectUser(user)"
-			>
-				<img [src]="user.avatar" [alt]="user.name" class="avatar" />
-				<div class="user-info">
-					<div class="user-name">{{ user.name }}</div>
-					<div class="last-message">{{ user.lastMessage }}</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="chat-container">
-		<app-chat
-			*ngIf="selectedUser"
-			[selectedChat]="selectedUser"
-			(messageSent)="onSendMessage($event)"
-		></app-chat>
-		<div *ngIf="!selectedUser" class="no-chat-selected">
-			Select a user to start chatting
-		</div>
-	</div>
+        <div class="user-list" *ngIf="filteredChats.length > 0">
+            <div
+                *ngFor="let chat of filteredChats"
+                class="user-item"
+                (click)="selectChat(chat)"
+                (keydown.enter)="selectChat(chat)"
+                tabindex="0"
+            >
+                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="user-name">{{ chat.name }}</div>
+                    <div class="last-message">{{ chat.lastMessage.text }}</div>
+                </div>
+                <div class="new-messages-count" *ngIf="chat.newMessagesCount > 0">{{ chat.newMessagesCount }}</div>
+            </div>
+        </div>
+        <div class="user-list" *ngIf="filteredChats.length === 0">
+            <p class="no-results">No results found</p>
+        </div>
+    </div>
+    <div class="footer">
+        <img src="assets/img/messages-icon.svg" alt="logo" class="footer-logo" />
+    </div>
 </div>

@@ -1,35 +1,39 @@
 <div>
 	<img src="assets/img/user-square.svg" alt="user-square" />
 	<h1>Registration</h1>
-	<app-custom-input
-		type="text"
-		placeholder="Your name..."
-		value="name"
-	></app-custom-input>
+	<div [formGroup]="registrationForm">
+		<app-custom-input
+			type="text"
+			placeholder="Your name..."
+			formControlName="name"
+		></app-custom-input>
 
-	<app-custom-input
-		type="email"
-		placeholder="Your email..."
-		value="email"
-	></app-custom-input>
+		<app-custom-input
+			type="email"
+			placeholder="Your email..."
+			formControlName="email"
+		></app-custom-input>
 
-	<app-custom-input
-		type="password"
-		placeholder="Your password..."
-		value="password"
-	></app-custom-input>
+		<app-custom-input
+			type="password"
+			placeholder="Your password..."
+			formControlName="password"
+		></app-custom-input>
 
-	<app-custom-input
-		type="password"
-		placeholder="Repeat your password..."
-		value="confirmPassword"
-	></app-custom-input>
+		<app-custom-input
+			type="password"
+			placeholder="Repeat your password..."
+			formControlName="confirmPassword"
+		></app-custom-input>
 
-	<app-custom-button
-		text="Register"
-		color="#007bff"
-		(onClick)="onRegisterClick()"
-	></app-custom-button>
+		<app-custom-button
+			text="Register"
+			color="#007bff"
+			[disabled]="registrationForm.invalid"
+			(click)="onRegisterClick()"
+		></app-custom-button>
+
+	</div>
 
 	<p class="postscriptum">
 		By continuing, you agree <br />

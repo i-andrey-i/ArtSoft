@@ -1,10 +1,6 @@
-<div class="message">
-  <img [src]="message.avatar" alt="avatar" class="avatar">
-  <div class="content">
-    <h3>{{ message.username }}</h3>
-    <p>{{ message.text }}</p>
-  </div>
-  <div class="unread" *ngIf="message.unread > 0">
-    {{ message.unread }}
-  </div>
-</div>
+<span [class]="`message ${message.active ? 'active' : ''}`" >
+  <button class="message-attachment" *ngIf="message.attachment" (click)="downloadFile()">
+    Скачать файл
+  </button>
+  {{ message.text }}
+</span>

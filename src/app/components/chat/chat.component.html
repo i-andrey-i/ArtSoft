@@ -1,38 +1,53 @@
-<div class="chat" *ngIf="selectedChat">
+<div class="chat">
 	<div class="chat-header">
-		<img [src]="selectedChat.avatar" [alt]="selectedChat.name" class="avatar" />
 		<div class="chat-info">
-			<h2>{{ selectedChat.name }}</h2>
-			<p>last seen never</p>
+			<button class="back-arrow" (click)="backToMain()">
+				<img src="assets/img/back.svg" alt="back">
+			</button>
+			<div class="avatar"></div>
+			<data>
+				<h2>{{ selectedChat?.name }}</h2>
+				<p>last seen never</p>
+			</data>
 		</div>
 	</div>
 
-	<div class="chat-messages">
+	<div class="chat-messages" #messageList [@messageAnimation]>
 		<div
 			*ngFor="let message of messages"
 			class="message"
-			[class.sent]="message.senderId === 0"
-		>
+		>	
 			<div class="message-content">
-				<p>{{ message.content }}</p>
-				<span class="message-time">{{
-					message.timestamp | date : 'shortTime'
-				}}</span>
+				<app-message [message]="message"></app-message>
 			</div>
+		</div>
+		<div class="chat-messages-empty" *ngIf="messages.length === 0">
+			<p>No messages yet</p>
 		</div>
 	</div>
 
 	<div class="chat-input">
-		<input
-			type="text"
-			placeholder="Write your message..."
-			[(ngModel)]="newMessage"
-			(keyup.enter)="onSendMessage()"
-		/>
-		<button (click)="onSendMessage()">Send</button>
+		<button class="chat-input-attachment" (click)="onUploadAttachment()" *ngIf="!attachment">
+			<img src="assets/img/upload.svg" alt="upload attachment" />
+		</button>
+		<button class="clear-attachment" (click)="attachment = undefined" *ngIf="attachment">
+			<img src="assets/img/exit.svg" alt="clear attachment" />
+			не прикреплять файл
+		</button>
+		<div class="chat-input">
+			<input
+				type="text"
+				placeholder="Write your message..."
+				[(ngModel)]="newMessage"
+				(keyup.enter)="onSendMessage()"
+			/>
+			<button (click)="onSendMessage()">
+				<img src="assets/img/send-arrow.svg" alt="send">
+			</button>
+		</div>
 	</div>
 </div>
 
-<div class="no-chat-selected" *ngIf="!selectedChat">
+<div class="no-chat-selected" *ngIf="selectedChat === null">
 	<p>Select a chat to start messaging</p>
 </div>
