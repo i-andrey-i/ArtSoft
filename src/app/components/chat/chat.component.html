@@ -1,37 +1,42 @@
 <div class="chat" *ngIf="selectedChat">
-	<div class="chat-header">
-		<div class="chat-info">
-			<h2>{{ selectedChat.name }}</h2>
-			<p>last seen never</p>
-		</div>
-	</div>
+    <div class="chat-header">
+        <div class="chat-info">
+            <h2>{{ selectedChat.name }}</h2>
+            <p>last seen never</p>
+        </div>
+    </div>
 
-	<div class="chat-messages">
-		<div
-			*ngFor="let message of messages"
-			class="message"
-			[class.sent]="message.from_user_id"
-		>
-			<div class="message-content">
-				<p>{{ message.text }}</p>
-				<span class="message-time">{{
-					message.created_at| date : 'shortTime'
-				}}</span>
-			</div>
-		</div>
-	</div>
+    <div class="chat-messages">
+        <div
+            *ngFor="let message of messages"
+            class="message"
+            [class.sent]="message.from_user_id"
+        >
+            <div class="message-content">
+                <p>{{ message.text }}</p>
+                <span class="message-time">{{
+                    message.created_at | date : "shortTime"
+                }}</span>
+            </div>
+        </div>
+    </div>
 
-	<div class="chat-input">
-		<input
-			type="text"
-			placeholder="Write your message..."
-			[(ngModel)]="newMessage"
-			(keyup.enter)="onSendMessage()"
-		/>
-		<button (click)="onSendMessage()"><img src = "assets/img/send-arrow.svg"></button>
-	</div>
+    <div class="chat-input">
+        <app-file-upload
+            (fileUploaded)="onFileUploaded($event)"
+        ></app-file-upload>
+        <input
+            type="text"
+            placeholder="Write your message..."
+            [(ngModel)]="newMessage"
+            (keyup.enter)="onSendMessage()"
+        />
+        <button (click)="onSendMessage()">
+            <img src="assets/img/send-arrow.svg" />
+        </button>
+    </div>
 </div>
 
 <div class="no-chat-selected" *ngIf="!selectedChat">
-	<p>Select a chat to start messaging</p>
+    <p>Select a chat to start messaging</p>
 </div>
