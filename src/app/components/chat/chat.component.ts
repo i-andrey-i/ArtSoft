@@ -97,9 +97,6 @@ export class ChatComponent implements OnInit, OnChanges, OnDestroy {
 					this.selectedChat = user;
 				}
 				this._cdr.markForCheck();
-			},
-			error: () => {
-				this._cdr.markForCheck();
 			}
 		})
 	}
