@@ -90,4 +90,9 @@ a {
 body{
   font-family: "Noto Sans Display", sans-serif;
   background-color: $background-color;
+  height: 100dvh;
+  width: 100dvw;
+  box-sizing: content-box;
+
+  overflow: hidden;
 }

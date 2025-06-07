@@ -5,7 +5,7 @@ export interface LoginDTO {
 
 export interface RegisterDTO {
     name: string;
-    email: string;
+    username: string;
     password: string;
     confirmPassword: string;
 }
@@ -15,7 +15,7 @@ export interface RestorePasswordDTO {
 }
 
 export interface ChangePasswordDTO {
-    restore_token: string;
+    restoreToken: string;
     password: string;
     confirmPassword: string;
 }

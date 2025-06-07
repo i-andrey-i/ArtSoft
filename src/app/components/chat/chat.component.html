@@ -1,42 +1,53 @@
-<div class="chat" *ngIf="selectedChat">
-    <div class="chat-header">
-        <div class="chat-info">
-            <h2>{{ selectedChat.name }}</h2>
-            <p>last seen never</p>
-        </div>
-    </div>
+<div class="chat">
+	<div class="chat-header">
+		<div class="chat-info">
+			<button class="back-arrow" (click)="backToMain()">
+				<img src="assets/img/back.svg" alt="back">
+			</button>
+			<div class="avatar"></div>
+			<data>
+				<h2>{{ selectedChat?.name }}</h2>
+				<p>last seen never</p>
+			</data>
+		</div>
+	</div>
 
-    <div class="chat-messages">
-        <div
-            *ngFor="let message of messages"
-            class="message"
-            [class.sent]="message.from_user_id"
-        >
-            <div class="message-content">
-                <p>{{ message.text }}</p>
-                <span class="message-time">{{
-                    message.created_at | date : "shortTime"
-                }}</span>
-            </div>
-        </div>
-    </div>
+	<div class="chat-messages" #messageList [@messageAnimation]>
+		<div
+			*ngFor="let message of messages"
+			class="message"
+		>	
+			<div class="message-content">
+				<app-message [message]="message"></app-message>
+			</div>
+		</div>
+		<div class="chat-messages-empty" *ngIf="messages.length === 0">
+			<p>No messages yet</p>
+		</div>
+	</div>
 
-    <div class="chat-input">
-        <app-file-upload
-            (fileUploaded)="onFileUploaded($event)"
-        ></app-file-upload>
-        <input
-            type="text"
-            placeholder="Write your message..."
-            [(ngModel)]="newMessage"
-            (keyup.enter)="onSendMessage()"
-        />
-        <button (click)="onSendMessage()">
-            <img src="assets/img/send-arrow.svg" />
-        </button>
-    </div>
+	<div class="chat-input">
+		<button class="chat-input-attachment" (click)="onUploadAttachment()" *ngIf="!attachment">
+			<img src="assets/img/upload.svg" alt="upload attachment" />
+		</button>
+		<button class="clear-attachment" (click)="attachment = undefined" *ngIf="attachment">
+			<img src="assets/img/exit.svg" alt="clear attachment" />
+			не прикреплять файл
+		</button>
+		<div class="chat-input">
+			<input
+				type="text"
+				placeholder="Write your message..."
+				[(ngModel)]="newMessage"
+				(keyup.enter)="onSendMessage()"
+			/>
+			<button (click)="onSendMessage()">
+				<img src="assets/img/send-arrow.svg" alt="send">
+			</button>
+		</div>
+	</div>
 </div>
 
-<div class="no-chat-selected" *ngIf="!selectedChat">
-    <p>Select a chat to start messaging</p>
+<div class="no-chat-selected" *ngIf="selectedChat === null">
+	<p>Select a chat to start messaging</p>
 </div>

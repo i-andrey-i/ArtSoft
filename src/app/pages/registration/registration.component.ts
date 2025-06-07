@@ -1,45 +1,40 @@
-import { Component, OnInit } from "@angular/core";
-import { CustomInputComponent } from "../../custom/custom-input/custom-input.component";
-import { CustomButtonComponent } from "../../custom/custom-button/custom-button.component";
-import { Router } from "@angular/router";
-import { ReactiveFormsModule } from "@angular/forms";
-import {
-    RegistrationFormModel,
-    RegistrationFormData,
-} from "../../models/registration-form.model";
-import { FormBuilder } from "@angular/forms";
+import { CommonModule } from '@angular/common'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { AuthService } from '@app/services/auth.service'
+import { confirmPasswordValidator } from '@app/validators/confirm-password-validator'
+import { CustomButtonComponent } from '../../custom/custom-button/custom-button.component'
+import { CustomInputComponent } from '../../custom/custom-input/custom-input.component'
 
 @Component({
-    selector: "app-registration",
-    standalone: true,
-    templateUrl: "./registration.component.html",
-    styleUrls: ["./registration.component.scss"],
-    imports: [CustomInputComponent, CustomButtonComponent, ReactiveFormsModule],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-registration',
+	standalone: true,
+	templateUrl: './registration.component.html',
+	styleUrls: ['./registration.component.scss'],
+	imports: [CustomInputComponent, CustomButtonComponent, ReactiveFormsModule, CommonModule],
 })
-export class RegistrationComponent implements OnInit {
-    public readonly formModel: RegistrationFormModel;
-    public errorMessage = "";
+export class RegistrationComponent {
+	protected readonly registrationForm = new FormGroup({
+		email: new FormControl('', [Validators.required, Validators.email]),
+		password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+		confirmPassword: new FormControl('', [Validators.required]),
+		name: new FormControl('', [Validators.required]),
+	}, {
+		validators: [confirmPasswordValidator]
+	})
+	constructor(private _authService: AuthService) {}
 
-    constructor(
-        private readonly router: Router,
-        private readonly fb: FormBuilder
-    ) {
-        this.formModel = new RegistrationFormModel(fb);
-    }
+	onRegisterClick(): void {
+		if (this.registrationForm.invalid) {
+			return
+		}
 
-    public ngOnInit(): void {}
-
-    public onRegisterClick(): void {
-        const formData = this.formModel.getFormData();
-        if (formData) {
-            console.log("Registration data:", formData);
-            void this.router.navigate(["/main"]);
-        } else {
-            this.errorMessage = "Please fill in all fields correctly";
-        }
-    }
-
-    public getErrorMessage(controlName: string): string {
-        return this.formModel.getErrorMessage(controlName);
-    }
+		this._authService.register({
+			name: this.registrationForm.value.name as string,
+			username: this.registrationForm.value.email as string,
+			password: this.registrationForm.value.password as string,
+			confirmPassword: this.registrationForm.value.confirmPassword as string,
+		})
+	}
 }

@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
-import { Message } from '../models/message.model'
-import { BaseHttpService } from './base/base-http.service'
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Chat } from '../models/chat.model';
-import * as DTO from './dto/message.dto';
+import { Message } from '../models/message.model';
+import { BaseHttpService } from './base/base-http.service';
+import { MessageSendDTO } from './dto/message.dto';
 import { PaginationOptions, QueryOptions } from './models/options';
 
 @Injectable({ providedIn: 'root' })
 export class MessageService extends BaseHttpService {
+	constructor() {
+		super()
+	}
+
 	getChats(options: QueryOptions = {}): Observable<Chat[]> {
 		return this.get<Chat[]>('messages', options);
 	}
@@ -19,15 +23,14 @@ export class MessageService extends BaseHttpService {
 		return this.get<Message[]>(`messages/${chatId}`, options);
 	}
 
-	sendMessage(message: DTO.MessageSendDTO): Observable<Message> {
-		return this.post<Message>('messages', message);
+	sendMessage(message: MessageSendDTO): Observable<string> {
+		return this.post<string>('messages', message);
 	}
 
-	read(message_id: string) {
-		return this.patch(`messages/${message_id}/read`);
+	read(messageId: string): Observable<unknown> {
+		const path = `messages/${messageId}/read`;
+
+		return this.patch<unknown>(path);
 	}
 
-	constructor() {
-		super()
-	}
 }

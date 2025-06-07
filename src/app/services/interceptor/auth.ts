@@ -5,11 +5,11 @@ export const authInterceptor: HttpInterceptorFn = (
     req: HttpRequest<unknown>, 
     next: HttpHandlerFn
 ) => {
-    const userToken = tokenStore.get()?.access_token;
+    const token = tokenStore.get()?.accessToken;
 
-    if (userToken !== undefined) {
+    if (token != undefined) {
         req = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${userToken}`),
+            headers: req.headers.set('Authorization', `Bearer ${token}`)
         });
     }
 

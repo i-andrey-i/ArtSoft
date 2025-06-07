@@ -1,120 +1,48 @@
-import { Component, OnInit, HostListener } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { ChatComponent } from '../../components/chat/chat.component'
+import { Router } from '@angular/router'
+import { ModalComponent } from '@app/components/modal/modal.component'
+import { Message } from '@app/models/message.model'
+import { UpdateService } from '@app/services/update.service'
+import { Chat } from '../../models/chat.model'
 import { MessageService } from '../../services/message.service'
 import { UserService } from '../../services/user.service'
-import { Message } from '../../models/message.model'
-import { Chat } from '../../models/chat.model'
-import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-main',
 	standalone: true,
-	imports: [CommonModule, FormsModule, ChatComponent, HttpClientModule],
+	imports: [CommonModule, FormsModule, ModalComponent],
 	providers: [UserService, MessageService],
 	templateUrl: './main.component.html',
 	styleUrls: ['./main.component.scss'],
 })
 
-export class MainComponent implements OnInit {
-	chats: Chat[] = []
-	filteredChats: Chat[] = []
-	selectedChat: Chat | null = null
-	searchQuery: string = ''
-
-	constructor(
-		private userService: UserService,
-		private messageService: MessageService,
-		private router: Router
-	) {}
-
-	ngOnInit(): void {
-		this.loadUsers()
-	}
-
-	loadUsers(): void {
-		/*
-		this.messageService.getChats().subscribe(chats => {
-			this.chats = chats;
-			this.filteredChats = chats;
-		})
-
-		 */
-		// Временные данные для верстки
-		this.chats = [
-			{
-				id: '1',
-				name: 'John Doe',
-				last_message: {
-					id: 101,
-					from_user_id: '1',
-					is_read: false,
-					text: 'Hello, how are you?',
-					created_at: '2025-04-28T10:15:00Z',
-				},
-				new_messages_count: 2,
-			},
-			{
-				id: '2',
-				name: 'Jane Smith',
-				last_message: {
-					id: 102,
-					from_user_id: '2',
-					is_read: false,
-					text: 'Let’s meet tomorrow.',
-					created_at: '2025-04-28T09:50:00Z',
-				},
-				new_messages_count: 10,
-			},
-			{
-				id: '3',
-				name: 'Alice Johnson',
-				last_message: {
-					id: 103,
-					from_user_id: '3',
-					is_read: true,
-					text: 'Can you send me the file?',
-					created_at: '2025-04-28T08:30:00Z',
-				},
-				new_messages_count: 0,
-			},
-		] as Chat[];
-		this.filteredChats = this.chats;
-
-	}
-
-	onSearch(): void {
-		this.messageService.getChats({
-			search: this.searchQuery
-		})
-		.subscribe(chats => {
-			this.filteredChats = chats
-		})
-	}
-
-	selectChat(chat: Chat): void {
-		this.selectedChat = chat
-	}
-
-	onSendMessage(message: Message): void {
-		if (this.selectedChat) {
-			this.messageService.sendMessage({
-				to_user_id: this.selectedChat.id,
-				text: message.text,
-				created_at: new Date().toLocaleString()
-			}).subscribe(() => {})
-		}
-	}
-
+export class MainComponent implements OnInit, OnDestroy {
 	sidebarWidth: number = 200; // Начальная ширина sidebar
 	isResizing: boolean = false;
+	ws?: WebSocket;
+	chats: Chat[] = []
+	filteredChats: Chat[] = []
+	searchQuery: string = ''
+	
 
-	onResizeStart(event: MouseEvent): void {
-		this.isResizing = true;
-		event.preventDefault();
+	constructor(
+		private _updateService: UpdateService,
+		private _userService: UserService,
+		private _messageService: MessageService,
+		private _router: Router,
+		private _cdr: ChangeDetectorRef
+	) {
+		this._userService.getMe().subscribe({
+			next: () => {
+				this.loadUsers()
+			},
+			error: () => {
+				this._router.navigate(['/login'])
+			}
+		})
 	}
 
 	@HostListener('document:mousemove', ['$event'])
@@ -130,5 +58,62 @@ export class MainComponent implements OnInit {
 	@HostListener('document:mouseup')
 	onResizeEnd(): void {
 		this.isResizing = false;
+	}
+
+	ngOnInit(): void {
+		this.loadUsers()
+		this.prepareWebSocket()
+	}
+
+	prepareWebSocket(): void {
+		this.ws = this._updateService.update((message: Message) => {
+			const chat = this.filteredChats.find(c => c.id == message.fromUserId);
+			if (chat) {
+				chat.lastMessage = message;
+				chat.newMessagesCount += 1;
+			}
+			console.log(chat)
+			this._cdr.markForCheck();
+		})
+	}
+
+	loadUsers(): void {
+		this._messageService.getChats().subscribe(chats => {
+			this.chats = chats;
+			this.filteredChats = chats;
+			this._cdr.markForCheck();
+		})
+ 
+		this.filteredChats = this.chats;
+	}
+
+	onSearch(): void {
+		this._messageService.getChats({
+			search: this.searchQuery
+		})
+		.subscribe(chats => {
+			this.filteredChats = chats
+		})
+	}
+
+	selectChat(chat: Chat): void {
+		this._router.navigate(['/chat', chat.id]);
+		this.ws?.close()
+	}
+
+	ngOnDestroy(): void {
+		this.ws?.close()
+	}
+
+	onResizeStart(event: MouseEvent): void {
+		this.isResizing = true;
+		event.preventDefault();
+	}
+
+	focusSearch(): void {
+		const searchInput = document.getElementById('search-input');
+		if (searchInput) {
+			searchInput.focus();
+		}
 	}
 }

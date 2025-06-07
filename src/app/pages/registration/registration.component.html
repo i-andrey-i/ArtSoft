@@ -1,66 +1,42 @@
-<div class="registration-container">
-    <form [formGroup]="formModel.getForm()" (ngSubmit)="onRegisterClick()">
-        <h2>Registration</h2>
+<div>
+	<img src="assets/img/user-square.svg" alt="user-square" />
+	<h1>Registration</h1>
+	<div [formGroup]="registrationForm">
+		<app-custom-input
+			type="text"
+			placeholder="Your name..."
+			formControlName="name"
+		></app-custom-input>
 
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input
-                id="name"
-                type="text"
-                formControlName="name"
-                placeholder="Enter your name"
-            />
-            <div class="error-message" *ngIf="getErrorMessage('name')">
-                {{ getErrorMessage("name") }}
-            </div>
-        </div>
+		<app-custom-input
+			type="email"
+			placeholder="Your email..."
+			formControlName="email"
+		></app-custom-input>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input
-                id="email"
-                type="email"
-                formControlName="email"
-                placeholder="Enter your email"
-            />
-            <div class="error-message" *ngIf="getErrorMessage('email')">
-                {{ getErrorMessage("email") }}
-            </div>
-        </div>
+		<app-custom-input
+			type="password"
+			placeholder="Your password..."
+			formControlName="password"
+		></app-custom-input>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input
-                id="password"
-                type="password"
-                formControlName="password"
-                placeholder="Enter your password"
-            />
-            <div class="error-message" *ngIf="getErrorMessage('password')">
-                {{ getErrorMessage("password") }}
-            </div>
-        </div>
+		<app-custom-input
+			type="password"
+			placeholder="Repeat your password..."
+			formControlName="confirmPassword"
+		></app-custom-input>
 
-        <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input
-                id="confirmPassword"
-                type="password"
-                formControlName="confirmPassword"
-                placeholder="Confirm your password"
-            />
-            <div
-                class="error-message"
-                *ngIf="getErrorMessage('confirmPassword')"
-            >
-                {{ getErrorMessage("confirmPassword") }}
-            </div>
-        </div>
+		<app-custom-button
+			text="Register"
+			color="#007bff"
+			[disabled]="registrationForm.invalid"
+			(click)="onRegisterClick()"
+		></app-custom-button>
 
-        <div class="error-message" *ngIf="errorMessage">
-            {{ errorMessage }}
-        </div>
+	</div>
 
-        <button type="submit">Register</button>
-    </form>
+	<p class="postscriptum">
+		By continuing, you agree <br />
+		with the platform rules
+	</p>
 </div>

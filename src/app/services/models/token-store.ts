@@ -1,22 +1,23 @@
-import { Token } from './token'
+import { Token } from './token';
 
-const TOKEN_KEY = 'token'
+const tokenKey = 'token' as const;
 
 const get = (): Token | undefined => {
-    const item = localStorage.getItem(TOKEN_KEY);
-    if (!item) {
+    const item = localStorage.getItem(tokenKey);
+
+    if (item == null) {
         return undefined;
     }
 
-    return JSON.parse(item)
+    return JSON.parse(item) as Token
 }
 
-const set = (token: Token) => {
-    localStorage.setItem(TOKEN_KEY, JSON.stringify(token))
+const set = (token: Token): void => {
+    localStorage.setItem(tokenKey, JSON.stringify(token))
 }
 
-const remove = () => {
-    localStorage.removeItem(TOKEN_KEY)
+const remove = (): void => {
+    localStorage.removeItem(tokenKey)
 }
 
 export const tokenStore = {
